@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -16,7 +15,16 @@ mongoose.connect(MONGODB_URI, {
 }).catch(err => {
     console.error('Error connecting to MongoDB', err);
 });
-
+const usersRouter = require("./api/userListRoute");
+const translationRoute = require("./api/translationRoute");
+const translationSeshionRoute = require("./api/translationSessionRoute");
+const pushButtonRoute = require("./api/pushButtonRoute");
+app.use(express.json());
+app.use("/users", usersRouter);
+app.use("/translation", translationRoute);
+app.use("/translationSeshion", translationSeshionRoute);
+app.use("/pushButton", pushButtonRoute);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+module.exports = app;
