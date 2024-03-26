@@ -1,36 +1,30 @@
-
-const express = require("express");
-const {
-  getAllUsers,
-  getUsersListById,
-} = require("../dao/userDao");
+const express = require('express');
+const userAbl = require('../abl/userAbl');
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  try {
-    const users = await getAllUsers();
-    res.json(users);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
+// GET all users
+router.get('/', (req, res) => {
+  userAbl.getAllUsers(req, res);
 });
 
-router.get("/user/:id", async (req, res) => {
-  try {
-    const id = req.params.id.toString(); // Ensure the id is an integer
-    const usersList = await getUsersListById(id);
-    if (usersList) {
-      res.json(usersList);
-    } else {
-      res.status(404).send("Shopping list not found");
-    }
-  } catch (error) {
-    console.error(error); // Log the error to the console for debugging
-    res.status(500).send(error.message);
-  }
+// GET a user by ID
+router.get('/:id', (req, res) => {
+  userAbl.getUserById(req, res);
 });
-router.get("/current-user", (req, res) => {
-  res.json(req.user); // Send the hardcoded user data
+
+// POST to add a new user
+router.post('/', (req, res) => {
+  userAbl.addUser(req, res);
+});
+
+// PUT to update a user
+router.put('/:id', (req, res) => {
+  userAbl.updateUser(req, res);
+});
+
+// DELETE a user
+router.delete('/:id', (req, res) => {
+  userAbl.deleteUser(req, res);
 });
 
 module.exports = router;
