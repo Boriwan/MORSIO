@@ -20,7 +20,7 @@ const translationRoute = require("./api/translationRoute");
 const translationSeshionRoute = require("./api/translationSessionRoute");
 const pushButtonRoute = require("./api/pushButtonRoute");
 app.use(express.json());
-app.use("/users", usersRouter);
+app.use("/user", usersRouter);
 app.use("/translation", translationRoute);
 app.use("/translationSeshion", translationSeshionRoute);
 app.use("/pushButton", pushButtonRoute);

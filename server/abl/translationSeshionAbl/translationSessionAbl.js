@@ -1,4 +1,4 @@
-const translationSessionDao = require('../dao/translationSessionDao');
+const translationSessionDao = require('../../dao/translationSessionDao');
 
 const addTranslationSession = async (req, res) => {
   // Add business logic if needed before saving
