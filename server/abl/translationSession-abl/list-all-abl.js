@@ -1,12 +1,10 @@
 const TranslationSessionDao = require("../../dao/translationSessionDao");
 const path = require("path");
 
-let dao = new TranslationSessionDao(
-    path.join(__dirname, "..", "..", "storage", "translationSessions.json")
-    );
+let dao = new TranslationSessionDao();
 
 async function ListAllAbl(req, res) {
-    const translationSessions = dao.list();
+    const translationSessions = await dao.list();
     res.json(translationSessions);
 }
 
