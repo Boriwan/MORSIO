@@ -1,13 +1,13 @@
-const TranslationSessionDao = require("../../dao/translationSessionDao");
+const TranslationDao = require("../../dao/translationDao");
 const path = require("path");
 
-let dao = new TranslationSessionDao(
-    path.join(__dirname, "..", "..", "storage", "translationSessions.json")
+let dao = new TranslationDao(
+    path.join(__dirname, "..", "..", "storage", "translation.json")
     );
 
 async function CreateAbl(req, res) {
-    const translationSession = await dao.create(req.body);
-    res.json(translationSession);
+    const translation = await dao.create(req.body);
+    res.json(translation);
 }
 
 module.exports = CreateAbl;
