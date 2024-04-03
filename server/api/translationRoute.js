@@ -2,9 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const Translation = require('../models/translationModel'); // Adjust the path as necessary
+const authenticateToken = require("../middleware/authentication-middleware"); // Import the JWT verification middleware
 
 // POST method to add a new translation
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
   try {
     const newTranslation = new Translation(req.body);
     const savedTranslation = await newTranslation.save();

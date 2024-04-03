@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const translationSessionAbl = require('../abl/translationSeshionAbl/translationSessionAbl');
+const translationSessionAbl = require('../abl/translationSession-abl/translationSessionAbl');
 
 // POST method to add a new translation session
 router.post('/', async (req, res) => {

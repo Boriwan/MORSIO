@@ -1,6 +1,6 @@
 "use strict";
 const crypto = require("crypto");
-const UserModel = require("../models/UserModel"); // Replace with the correct path to your User model
+const UserModel = require("../models/UserModel"); // Adjust the path as necessary
 
 class UserDao {
   constructor() {}
@@ -13,20 +13,16 @@ class UserDao {
   }
 
   async edit(userId, newData) {
-    const updatedUser = await UserModel.findByIdAndUpdate(userId, newData, {
-      new: true,
-    });
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, newData, { new: true });
     return updatedUser;
   }
 
   async delete(userId) {
-    await UserModel.findByIdAndDelete(userId);
+    await UserModel.findOneAndDelete({id: userId});
   }
 
   async update(userId, newData) {
-    const updatedUser = await UserModel.findByIdAndUpdate(userId, newData, {
-      new: true,
-    });
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, newData, { new: true });
     return updatedUser;
   }
 
@@ -34,8 +30,13 @@ class UserDao {
     return await UserModel.find();
   }
 
-  async get(uuIdentity) {
-    return await UserModel.findOne({ uuIdentity });
+  async get(userId) {
+    return await UserModel.findOne({ id: userId });
+  }
+
+  // Method to find a user by their email address
+  async findByEmail(email) {
+    return await UserModel.findOne({ email: email });
   }
 }
 

@@ -17,13 +17,11 @@ mongoose.connect(MONGODB_URI, {
 });
 const usersRouter = require("./api/userListRoute");
 const translationRoute = require("./api/translationRoute");
-const translationSeshionRoute = require("./api/translationSessionRoute");
-const pushButtonRoute = require("./api/pushButtonRoute");
+const translationSessionRoute = require("./api/translationSessionRoute");
 app.use(express.json());
 app.use("/user", usersRouter);
 app.use("/translation", translationRoute);
-app.use("/translationSeshion", translationSeshionRoute);
-app.use("/pushButton", pushButtonRoute);
+app.use("/translationSession", translationSessionRoute);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

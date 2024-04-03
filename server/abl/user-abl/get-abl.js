@@ -1,11 +1,9 @@
 const UserDao = require("../../dao/user-dao");
 const path = require("path");
 
-let dao = new UserDao(
-  path.join(__dirname, "..", "..", "storage", "users.json")
-);
+let dao = new UserDao();
 
-// console.log(userList);
+
 
 async function GetAbl(req, res) {
   const user = await dao.get(req.params.id);

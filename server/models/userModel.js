@@ -2,11 +2,27 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    id: String, // Unique identifier for the user
-    userName: String, // Name of the user
-    email: String, // Email of the user
-    password: String // Password of the user
-});
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    userName: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+    },
+    password: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+
+  });
 
 const User = mongoose.model('User', userSchema);
 
