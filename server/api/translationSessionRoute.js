@@ -27,4 +27,9 @@ router.get('/morseAlphabet', async (req, res) => {
   translationSessionAbl.showMorseCodeAlphabet(req, res);
 });
 
+// DELETE method to delete a translation session by id
+router.delete('/:id', async (req, res) => {
+  translationSessionAbl.deleteTranslationSession(req, res);
+});
+
 module.exports = router;

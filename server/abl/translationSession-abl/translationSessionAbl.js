@@ -17,6 +17,10 @@ const renameTranslationSession = async (req, res) => {
   translationSessionDao.renameTranslationSession(req.params.id, req.body.name, res);
 };
 
+const deleteTranslationSession = async (req, res) => {
+  translationSessionDao.deleteTranslationSession(req.params.id, res);
+}
+
 const showMorseCodeAlphabet = async (req, res) => {
   // Static data, directly send response
   const morseAlphabet = {
@@ -30,5 +34,6 @@ module.exports = {
   viewTranslationSession,
   filterTranslationSessions,
   renameTranslationSession,
-  showMorseCodeAlphabet
+  showMorseCodeAlphabet,
+  deleteTranslationSession
 };
