@@ -1,20 +1,15 @@
 const TranslationSessionDao = require("../../dao/translationSessionDao");
 const path = require("path");
 
-let dao = new TranslationSessionDao(
-    path.join(__dirname, "..", "..", "storage", "translationSessions.json")
-    );
+let dao = new TranslationSessionDao();
 
 async function DeleteAbl(req, res) {
     const translationSessionId = req.params.id;
-    const translationSession = dao.get(translationSessionId);
+    const translationSession = dao.delete(translationSessionId);
     if (!translationSession) {
         return res.status(404).json({ error: "Translation session not found" });
     }
-    dao.delete(translationSessionId);
-    res.json({
-        message: `Translation session with id ${translationSessionId} has been deleted.`,
-    });
+    res.json(translationSession);
 }
 
 module.exports = DeleteAbl;

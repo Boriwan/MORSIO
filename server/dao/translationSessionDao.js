@@ -43,9 +43,22 @@ const renameTranslationSession = async (id, newName, res) => {
   }
 };
 
+const deleteTranslationSession = async (id, res) => {
+  try {
+    const session = await TranslationSession.findByIdAndDelete(id);
+    if (!session) {
+      return res.status(404).send();
+    }
+    res.status(200).send(session);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
   addTranslationSession,
   viewTranslationSession,
   filterTranslationSessions,
-  renameTranslationSession
+  renameTranslationSession,
+  deleteTranslationSession,
 };
