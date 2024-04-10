@@ -1,38 +1,46 @@
 .App {
+  max-width: 100%;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 100vh; /* Zajistí, že kontejner bude mít plnou výšku okna */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px;
+  justify-content: center; /* Zarovná text horizontálně do středu */
+  align-items: center; /* Zarovná text vertikálně do středu */
+  box-sizing: border-box;
+
 }
 
-.App-link {
-  color: #61dafb;
+
+.session-list, .chat-component, .morsio-sheet {
+  height: 100%; /* Zajistí, že komponenty zabírají celou výšku kontejneru */
+  flex-grow: 1; /* Each div will grow equally to take up the container space */
+  border: 1px solid #000; /* Adds a border to each div for visual separation */
+  border-radius: 20px; /* Zaoblení rohů */
+  margin: 10px; /* Přidá prostor mezi elementy a od okraje kontejneru */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.session-list.closed, .chat-component.closed, .morsio-sheet.closed {
+  width: 40px; /* nebo jiná šířka odpovídající šířce tlačítka */
+  /* Další styly pro zavřený stav */
 }
+
+
+.session-list {
+  flex: 0 0 20%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 30% */
+  background-color: #f8f9fa; /* Přidá barvu pozadí pro vizuální oddělení */
+  /* Další styly pro SessionList */
+}
+
+.chat-component {
+  flex: 0 0 60%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 60% */
+  background-color: #e9ecef; /* Přidá barvu pozadí */
+  /* Další styly pro ChatComponent */
+}
+
+.morsio-sheet {
+  flex: 0 0 15%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 10% */
+  background-color: #dee2e6; /* Přidá barvu pozadí */
+  /* Další styly pro MorsioSheet */
+}
+
+
