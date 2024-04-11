@@ -7,6 +7,7 @@
   justify-content: center; /* Zarovná text horizontálně do středu */
   align-items: center; /* Zarovná text vertikálně do středu */
   box-sizing: border-box;
+  background-color: #011313;
 
 }
 
@@ -14,7 +15,6 @@
 .session-list, .chat-component, .morsio-sheet {
   height: 100%; /* Zajistí, že komponenty zabírají celou výšku kontejneru */
   flex-grow: 1; /* Each div will grow equally to take up the container space */
-  border: 1px solid #000; /* Adds a border to each div for visual separation */
   border-radius: 20px; /* Zaoblení rohů */
   margin: 10px; /* Přidá prostor mezi elementy a od okraje kontejneru */
 }
@@ -27,7 +27,6 @@
 
 .session-list {
   flex: 0 0 20%; /* flex-grow: 0, flex-shrink: 0, flex-basis: 30% */
-  background-color: #f8f9fa; /* Přidá barvu pozadí pro vizuální oddělení */
   /* Další styly pro SessionList */
 }
 
