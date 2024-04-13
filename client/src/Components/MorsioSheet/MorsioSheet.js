@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import './MorsioSheet.css'; // Ujistěte se, že tento soubor obsahuje výše uvedený CSS
 
-function MorsioSheet({ isOpen, toggleSidebar }) {
+function MorsioSheet() {
+  const [isOpen, setIsOpen] = useState(true);
+
+  // Funkce pro přepnutí stavu
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className={`morsio-sheet ${isOpen ? 'open' : 'closed'}`}>
       <button onClick={toggleSidebar} className="toggle-button">

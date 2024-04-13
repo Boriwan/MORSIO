@@ -6,6 +6,9 @@ import { faCircleUser, faCog, faInfoCircle } from '@fortawesome/free-solid-svg-i
 
 
 function SessionList() {
+
+  
+
   return (
     <div className="session-list-container">
       <div className="session-list-header">

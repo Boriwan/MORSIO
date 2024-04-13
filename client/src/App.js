@@ -20,16 +20,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <div className={`session-list ${isOpen ? '' : 'closed'}`}>
         <SessionList/>
-        </div>
         <div className={`chat-component ${isOpen ? '' : 'closed'}`}>
           <ChatComponent/>
         </div>
-        <div className={`morsio-sheet ${isOpen ? '' : 'closed'}`}>
           <MorsioSheet isOpen={isOpen} toggleSidebar={toggleSidebar} />
-        </div>
-        
       </div>
     </Router>
   );
