@@ -1,65 +1,60 @@
 .morsio-sheet {
-    box-sizing: border-box;
-    width: 100%; /* nebo pevná šířka v px, pokud je potřeba */
-    height: 100%; /* výška bude odpovídat kontejneru */
-    background-color: rgba(255, 255, 255, 0.9); /* průhledné bílé pozadí */
-    border-radius: 20px; /* zaoblení rohů */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* stínování */
-    padding: 20px; /* prostor uvnitř komponenty */
-    box-sizing: border-box; /* zahrnuje padding a border do šířky a výšky */
-    overflow-y: auto; /* povolí scrolling pokud je obsah příliš dlouhý */
-  }
-  
-  .morsio-sheet h2 {
-    margin-top: 0;
-    color: #333; /* tmavě šedá barva textu */
-    font-size: 1.2em; /* velikost písma nadpisu */
-  }
-  .morsio-sheet {
-    width: 100%; /* nebo pevná šířka v px, pokud je potřeba */
-    max-height: 100vh; /* omezí výšku side baru na výšku viewportu */
-    background-color: rgba(255, 255, 255, 0.9); /* průhledné bílé pozadí */
-    border-radius: 20px; /* zaoblení rohů */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* stínování */
-    padding: 20px; /* prostor uvnitř komponenty */
-    box-sizing: border-box; /* zahrne padding a border do šířky a výšky */
-    overflow-y: auto; /* povolí scrolling pokud je obsah příliš dlouhý */
-    position: relative; /* potřebné pro pozicování ovládacího prvku pro skrývání */
-  }
-  
-  /* Skryje scrollbar, ale stále umožní scrolling */
-  .morsio-sheet::-webkit-scrollbar {
-    display: none; /* pro Chrome, Safari a novější verze Edge */
-  }
-  
-  .morsio-sheet {
-    -ms-overflow-style: none; /* pro IE a Edge */
-    scrollbar-width: none; /* pro Firefox */
-  }
-  
-  /* Styly pro jednotlivé položky morseovky */
-  .morsio-sheet .morse-item {
-    font-size: 1em; /* velikost písma položek */
-    color: #333; /* barva textu položek */
-    padding: 5px 0; /* padding položek */
-    border-bottom: 1px solid #ddd; /* oddělovací čára mezi položkami */
-  }
-  
-  /* Zrušení posledního borderu */
-  .morsio-sheet .morse-item:last-child {
-    border-bottom: none;
-  }
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
 
-  
+.morsio-sheet h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.2em;
+}
+.morsio-sheet {
+  width: 100%;
+  max-height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+.morsio-sheet::-webkit-scrollbar {
+  display: none;
+}
+
+.morsio-sheet {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.morsio-sheet .morse-item {
+  font-size: 1em;
+  color: #333;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.morsio-sheet .morse-item:last-child {
+  border-bottom: none;
+}
+
 .morsio-sheet.closed {
-    width: 40px; /* Šířka sidebaru když je zavřený - měla by odpovídat šířce šipky */
-  }
-  
-  .toggle-button {
-    position: absolute;
-    top: 0;
-    left: 100%; /* Posune šipku na pravou stranu sidebaru */
-    transform: translateX(-100%); /* Zajistí, že šipka bude viditelná když je sidebar zavřený */
-    z-index: 10; /* Zajistí, že šipka bude navrchu sidebaru */
-    /* další styly... */
-  }
+  width: 40px;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translateX(-100%);
+  z-index: 10;
+}

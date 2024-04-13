@@ -1,5 +1,6 @@
 // SettingsModal.js
 import React from 'react';
+import "./SettingsModal.css"
 
 const SettingsModal = () => {
   return (

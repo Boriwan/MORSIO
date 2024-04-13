@@ -1,91 +1,89 @@
 .session-list-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    background-color: #041d2d; /* Tmavě modrá barva pozadí */
-    color: white;
-    border-radius: 20px; /* Zaoblené rohy */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lehký stín */
-    box-sizing: border-box;
-  }
-  
-  .session-list-header {
-    display: flex; /* Použije flexbox pro rodičovský prvek */
-    align-items: center; /* Zarovná položky ve středu vertikálně */
-    justify-content: center; /* Zarovná položky na začátku horizontálně */
-    padding: 10px;
-    font-size: 25px;
-    }
-  
-  .session-list-logo {
-  width: 65px; /* Můžete specifikovat pevnou šířku nebo nechat na 'auto' */
-  height: 65px; /* Výška loga */
-  margin-right: 10px; /* Mezera mezi logem a textem */
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: #041d2d;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
 
-  .session-list.body {
-    overflow-y: auto; /* Povolí scrollování, pokud je obsahu moc */
+.session-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 25px;
+}
 
-  }
-  
- 
-  .session-list-title, .session-add-btn {
-    display: block; /* zajistí, že prvek zabere celou dostupnou šířku */
-    margin: 10px auto; /* centruje prvek horizontálně a přidává horní/dolní okraj */
-    width: 80%; /* nastaví šířku na 80% rodičovského prvku */
-    padding: 12px 0; /* nastaví padding nahoře a dole */
-    border-radius: 20px; /* zaoblené rohy */
-    text-align: center; /* text bude vždy uprostřed */
-    font-weight: bold; /* tučné písmo */
-    font-size: 1rem;
-  }
-  
-  /* Samostatné styly pro tlačítko */
-  .session-add-btn {
-    background-color: #527796; /* barva pozadí tlačítka */
-    border: none; /* bez okraje */
-    color: white; /* bílý text */
-    cursor: pointer; /* kurzor se změní na ukazatel kliknutí */
-    outline: none; /* odebere obrys po kliknutí */
-  }
-  
-  /* Samostatné styly pro nadpis */
-  .session-list-title {
-    background-color: #8EB9B3; /* barva pozadí nadpisu */
-    color: white; /* bílý text */
-  }
-  
-  /* Styly pro efekt při najetí myši na tlačítko */
-  .session-add-btn:hover {
-    background-color: #527796e1; /* barva pozadí tlačítka */
+.session-list-h1 {
+  font-weight: lighter;
+}
 
-  }
+.session-list-logo {
+  width: 65px;
+  height: 65px;
+  margin-right: 10px;
+}
 
-  .session-list-footer {
-    display: flex;
-    justify-content: space-around; /* Rozloží ikony rovnoměrně přes dostupný prostor */
-    align-items: center; /* Vertikálně zarovná ikony do středu */
-    background-color: #527796; /* Nastaví barvu pozadí footeru */
-    border-radius: 20px; /* Zaoblené rohy footeru */
-    padding: 25px; /* Přidá padding uvnitř spodní části */
-    margin-top: auto; /* Posune footer automaticky na spodní část kontejneru */
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .session-list-footer .icon {
-    /* Společný styl pro všechny ikony */
-    font-size: 2rem;
-    color: white; /* Nastavit barvu Font Awesome ikon, pokud je používáte */
-    cursor: pointer; /* Nastaví ukazatel kliknutí pro ikony */
-  }
-  
-  /* Pro změnu barvy při najetí myši na ikonu */
-  .session-list-footer .icon:hover {
-    fill: #17a2b8; /* Nastavit barvu pro SVG ikony */
-    color: #17a2b8; /* Nastavit barvu pro Font Awesome ikony */
-  }
-  
-  
+.session-list.body {
+  overflow-y: auto;
+}
+
+.session-list-title,
+.session-add-btn {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  padding: 12px 0;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.session-link {
+  text-decoration: none;
+}
+
+.session-add-btn {
+  background-color: #527796;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+.session-list-title {
+  background-color: #8eb9b3;
+  color: white;
+}
+
+.session-add-btn:hover {
+  background-color: #527796e1;
+  cursor: pointer;
+}
+
+.session-list-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #527796;
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: auto;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.session-list-footer .icon {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+.session-list-footer .icon:hover {
+  fill: #17a2b8;
+  color: #17a2b8;
+}
