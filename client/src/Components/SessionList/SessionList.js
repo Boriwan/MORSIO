@@ -10,6 +10,7 @@ import {
   faPencilAlt,
   faTimes
 } from "@fortawesome/free-solid-svg-icons";
+import EditSessionModal from "../EditSessionModal/EditSessionModal";
 
 
 
@@ -23,13 +24,30 @@ function SessionList() {
     setSessions([...sessions, newSession]); // Přidá novou session do seznamu
   };
 
-  const editSession = (sessionId) => {
-  };
-
   const deleteSession = (sessionId) => {
     setSessions(sessions.filter((session, index) => index !== sessionId));
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingSession, setEditingSession] = useState(null);
+
+  const handleEditClick = (index) => {
+    const sessionToEdit = sessions[index];
+    setEditingSession({ ...sessionToEdit, id: index });
+      setIsModalOpen(true);
+     
+  };
+
+  const handleSave = (id, newName) => {
+    const updatedSessions = sessions.map((session, index) => {
+      if (index === id) {
+        return newName; // Změníme jméno session
+      }
+      return session;
+    });
+    setSessions(updatedSessions);
+    setIsModalOpen(false);
+  }
   return (
     <div className="session-list-container">
       <div className="session-list-header">
@@ -47,15 +65,16 @@ function SessionList() {
             <div key={index} className="session-item">
               <span className="session-item-text">{session}</span>
               <div className="session-btn-group">
-              <button onClick={() => editSession(index)} className="session-edit-btn">
-                <FontAwesomeIcon icon={faPencilAlt} />
-              </button>
-              <button onClick={() => deleteSession(index)} className="session-delete-btn">
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
+                <button onClick={() => handleEditClick(index)} className="session-edit-btn">
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </button>
+                <button onClick={() => deleteSession(index)} className="session-delete-btn">
+                  <FontAwesomeIcon icon={faTimes} />
+                </button>
               </div>
             </div>
           ))}
+          
         </div>
       </div>
 
@@ -67,6 +86,14 @@ function SessionList() {
 
         <FontAwesomeIcon icon={faCog} className="icon settings-icon" />
       </div>
+
+      <EditSessionModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            session={editingSession}
+            onSave={handleSave}
+      />
+
     </div>
   );
 }

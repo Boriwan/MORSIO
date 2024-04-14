@@ -28,9 +28,7 @@
   margin-right: 10px;
 }
 
-.session-list-body {
-  flex: 1; /* Tělo bude zaujímat všechen dostupný prostor mezi hlavičkou a patičkou */
-}
+
 
 .session-list-title,
 .session-add-btn {
@@ -88,9 +86,16 @@
   color: #17a2b8;
 }
 
+.session-list-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden; /* zabrání přetékání obsahu */
+}
+
 .session-list-sessions {
-  max-height: 350px; /* Maximální výška pro session, po jejímž překročení se zapne scrollování */
-  overflow-y: auto; /* Scrollování vnitřního divu */
+  flex-grow: 1; /* zajistí, že tento div zabere zbývající prostor */
+  overflow-y: auto; /* povolí scrollbar v tomto divu */
 }
 
 .session-item {
