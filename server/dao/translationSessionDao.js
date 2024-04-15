@@ -10,6 +10,17 @@ const addTranslationSession = async (sessionData, res) => {
   }
 };
 
+const listTranslationSessions = async (res) => {
+  try {
+    const sessions = await TranslationSession.find();
+    res.status(200).send(sessions);
+  } catch (error) {
+    res.status(400
+    ).send
+    (error);
+  } 
+}
+
 const viewTranslationSession = async (id, res) => {
   try {
     const session = await TranslationSession.findById(id);
@@ -57,6 +68,7 @@ const deleteTranslationSession = async (id, res) => {
 
 module.exports = {
   addTranslationSession,
+  listTranslationSessions,
   viewTranslationSession,
   filterTranslationSessions,
   renameTranslationSession,
