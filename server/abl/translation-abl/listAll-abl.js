@@ -1,12 +1,20 @@
 const TranslationDao = require("../../dao/translation-dao");
-const path = require("path");
 
 let dao = new TranslationDao();
 
 async function ListAllAbl(req, res) {
-  const translations = await dao.list();
+  console.log(req.params.sessionId);
+    if (!req.user || !req.user.id) {
+        return res.status(401).json({ error: "Unauthorized access" });
+    }
 
-  res.json(translations);
+    try {
+        const sessionId = req.params.sessionId; 
+        const translationSessions = await dao.listBySession(sessionId);
+        res.json(translationSessions);
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 }
 
 module.exports = ListAllAbl;

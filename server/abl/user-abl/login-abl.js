@@ -36,7 +36,7 @@ async function LoginUserAbl(req, res) {
     };
 
     // Generate a JWT token
-    log
+    
     const token = jwt.sign(payload, "yourSecretKey", { expiresIn: "1h" }); // Replace 'yourSecretKey' with a real secret key
 
     // Send response with token

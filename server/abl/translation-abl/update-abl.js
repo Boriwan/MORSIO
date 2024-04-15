@@ -2,7 +2,6 @@ const TranslationDao = require("../../dao/translation-dao");
 const path = require("path");
 
 let translationDao = new TranslationDao(
-  path.join(__dirname, "..", "..", "storage", "translations.json")
 );
 
 function UpdateAbl(req, res) {

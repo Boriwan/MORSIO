@@ -1,29 +1,30 @@
-const TranslationDao = require("../../dao/translationDao");
-const path = require("path");
+const TranslationSessionDao = require("../../dao/translationSession-dao");  // Adjusted to match context
+const crypto = require("crypto");
 
-let dao = new TranslationDao();
+let dao = new TranslationSessionDao();
 
 async function CreateAbl(req, res) {
     let body = req.body;
 
-    // Check if required parameters are provided
-    if (!body.translationSessionId || !body.sourceText || !body.targetText) {
+    // Check if all required parameters are provided
+    if (!body.name || !req.user || !req.user.id) {
         return res.status(400).json({
-            error: "Invalid input: translationSessionId, sourceText, and targetText parameters are required.",
+            error: "Invalid input: Missing name or author information",
         });
     }
 
-    // Initialize the translation object
-    let newTranslation = {
-        translationSessionId: body.translationSessionId,
-        sourceText: body.sourceText,
-        targetText: body.targetText,
+    // Initialize the translation session object
+    let newTranslationSession = {
+        id: crypto.randomBytes(8).toString("hex"),
+        name: body.name,
+        authorID: req.user.id,  // Assuming req.user.id is the ID of the logged-in user
+        creationDate: new Date()  // Set the current date and time as the creation date
     };
 
     try {
-        // Create the new translation
-        newTranslation = await dao.create(newTranslation);
-        res.status(201).json(newTranslation); // Send back the newly created translation
+        // Create the new translation session
+        newTranslationSession = await dao.create(newTranslationSession);
+        res.status(201).json(newTranslationSession); // Send back the newly created translation session
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
