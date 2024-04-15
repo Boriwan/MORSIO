@@ -9,7 +9,7 @@
   box-sizing: border-box;
   overflow-y: auto;
   background-color: #527796 !important;
-  color: white !important;
+  color: black;
   display: flex;
   flex-direction: column;
 }
@@ -23,8 +23,11 @@
 
 .morsio-sheet h2 {
   margin-top: 0;
-  color: white;
+  color: black;
   font-size: 1.2em;
+  background-color: #8EB9B3;
+  border-radius: 10px;
+
 }
 .morsio-sheet {
   width: 100%;
@@ -47,12 +50,6 @@
   scrollbar-width: none;
 }
 
-.morsio-sheet .morse-item {
-  font-size: 1em;
-  padding: 5px 0;
-  border-bottom: 1px solid #ddd;
-}
-
 .morsio-sheet .morse-item:last-child {
   border-bottom: none;
 }
@@ -68,4 +65,31 @@
   border: none;
   background-color: #8EB9B3;
   width: 9vw;
+}
+
+.morsio-sheet .morse-item {
+  font-weight: bold;
+  display: flex;
+  padding: 5px 50px;
+  border-bottom: 1px solid black;
+}
+
+.morsio-sheet .morse-item::before,
+.morsio-sheet .morse-item::after {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.morsio-sheet .morse-item::before {
+  content: attr(data-letter);
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(50% - 10px); /* Nastaví šířku písmene na polovinu rodiče minus padding */
+  text-align: left; /* Zarovnání textu doleva */
+}
+
+.morsio-sheet .morse-item::after {
+  content: attr(data-code);
+  flex-grow: 1;
+  text-align: left; /* Zarovnání Morseovy abecedy doprava */
 }

@@ -21,7 +21,9 @@ function Home() {
           <SessionList />
         </div>
         <Session />
+        
         <MorsioSheet isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        
       </div>
     </div>
   );
