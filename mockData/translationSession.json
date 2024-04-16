@@ -1,0 +1,21 @@
+[
+    {
+      "id": "session1",
+      "name": "First Session",
+      "authorID": "e60b1b4d47478ab0",
+      "creationDate": "2024-04-18T08:30:00Z"
+    },
+    {
+      "id": "session2",
+      "name": "Second Session",
+      "authorID": "e60b1b4d47478ab0",
+      "creationDate": "2024-04-18T09:00:00Z"
+    },
+    {
+      "id": "session3",
+      "name": "Third Session",
+      "authorID": "8f490ad2d68e5031",
+      "creationDate": "2024-04-18T09:00:00Z"
+    }
+  ]
+  

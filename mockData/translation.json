@@ -1,0 +1,53 @@
+[
+    {
+      "sessionId": "session1",
+      "morseCode": [".-", "-..."],
+      "translation": "AB",
+      "creationDate": {
+        "$date": "2024-04-15T17:51:01.798Z"
+      }
+    },
+    {
+      "sessionId": "session1",
+      "morseCode": ["-.-.", "-.."],
+      "translation": "CD",
+      "creationDate": {
+        "$date": "2024-04-15T17:51:01.798Z"
+      }
+    },
+    {
+      "sessionId": "session1",
+      "morseCode": [".", "..-."],
+      "translation": "EF",
+      "creationDate": {
+        "$date": "2024-04-15T17:51:01.798Z"
+      }
+    },
+    
+      {
+        "sessionId": "session2",
+        "morseCode": ["--.", "...."],
+        "translation": "GH",
+        "creationDate": {
+          "$date": "2024-04-15T17:51:01.798Z"
+        }
+      },
+      {
+        "sessionId": "session2",
+        "morseCode": ["..", ".---"],
+        "translation": "IJ",
+        "creationDate": {
+          "$date": "2024-04-15T17:51:01.798Z"
+        }
+      },{
+        "sessionId": "session3",
+        "morseCode": ["..", ".---"],
+        "translation": "IJ",
+        "creationDate": {
+          "$date": "2024-04-15T17:51:01.798Z"
+        }
+      }
+    
+    
+  ]
+  
