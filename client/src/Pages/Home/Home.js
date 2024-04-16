@@ -7,12 +7,12 @@ import { useState } from "react";
 
 function Home() {
 
-    const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
-    // Funkce pro přepnutí stavu
-    const toggleSidebar = () => {
-      setIsOpen(!isOpen);
-    };
+  // Funkce pro přepnutí stavu
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div>
@@ -21,9 +21,10 @@ function Home() {
           <SessionList />
         </div>
         <Session />
-        
-        <MorsioSheet isOpen={isOpen} toggleSidebar={toggleSidebar} />
-        
+
+        <div className="morsio-cheatsheet">
+          <MorsioSheet isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        </div>
       </div>
     </div>
   );
