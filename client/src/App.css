@@ -1,5 +1,5 @@
 .App {
-  max-width: 100%;
+  width: 100vw;
   text-align: center;
   height: 100vh;
   display: flex;
@@ -29,6 +29,6 @@
 
 
 .morsio-sheet {
-  flex: 0 0 15%;
+  flex: 0 0 10%;
   background-color: #dee2e6;
 }

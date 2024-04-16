@@ -3,30 +3,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import About from "./Pages/About/About";
 import Session from "./Pages/Session/Session";
-import SessionList from "./Components/SessionList/SessionList";
-import MorsioSheet from "./Components/MorsioSheet/MorsioSheet";
-import { useState } from "react";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Register from "./Pages/Register/Register";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(true);
 
-  // Funkce pro přepnutí stavu
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <Router>
       <div className="App">
-        <div className='session-list'>
-          <SessionList />
-        </div>
         <Routes>
-          <Route exact path="/" element={<Session />} />
+          <Route exact path="/" element={<Login />} />
           <Route path="/session" element={<Session />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
         </Routes>
-          <MorsioSheet isOpen={isOpen} toggleSidebar={toggleSidebar} />
       </div>
     </Router>
   );
