@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "66041513c91d83c0b78c337e"
+  },
+  "id": "8f490ad2d68e5031",
+  "userName": "Stefan_hloupy",
+  "email": "stefan.hloupy@gmail.com",
+  "password": "$2b$10$UDc21JI1bAwFgs2yqdco6.zG.sTcgmvqQVlbHqbuevMOcPvVzB85.",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660bf82b04cdfee10eed9825"
+  },
+  "id": "e60b1b4d47478ab0",
+  "userName": "jakub_stadnik",
+  "role": "admin",
+  "password": "$2b$10$6nrXGDD6lk0e6YjXE.abv.LZLXzEB8P3grPNe8ZfqiSvKgPeWSL.W",
+  "email": "jakub.stadnik@gmail.com",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "661d4224a4c6819e1ec460f8"
+  },
+  "id": "0502cb0abd5e1cd0",
+  "userName": "jakub_stadnik",
+  "role": "user",
+  "password": "$2b$10$RGrH.6DLaK5UYzt2hl66QO4Z1bHGLNtK1QczUFXzMA3yxphuWhXb.",
+  "email": "jakub.stadnik@seznam.com",
+  "__v": 0
+}]
