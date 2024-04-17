@@ -2,9 +2,11 @@
 .morsio-sheet h2 {
   margin-top: 0;
   color: black;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Zvětšuje velikost písma nadpisu */
+  line-height: 1.5; /* Zvětšuje výšku řádku, což zvětší celkovou výšku nadpisu */
   background-color: #8EB9B3;
-  border-radius: 10px;
+  border-radius: 15px;
+  padding: 10px;
 }
 .morsio-sheet {
   background-color: #527796 !important;
@@ -57,7 +59,7 @@
 .morsio-sheet .morse-item {
   font-weight: bold;
   display: flex;
-  padding: 5px 50px;
+  padding: 5px 35px;
   border-bottom: 1px solid black;
 }
 
@@ -70,8 +72,6 @@
 .morsio-sheet .morse-item::before {
   content: attr(data-letter);
   flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: calc(50% - 10px); /* Nastaví šířku písmene na polovinu rodiče minus padding */
   text-align: left; /* Zarovnání textu doleva */
 }
 
@@ -79,4 +79,7 @@
   content: attr(data-code);
   flex-grow: 1;
   text-align: left; /* Zarovnání Morseovy abecedy doprava */
+  white-space: nowrap; /* Zajistí, že Morseův kód zůstane na jedné řádce */
+  overflow: hidden; /* Skryje přebytečný obsah, pokud by byl příliš dlouhý */
+  text-overflow: ellipsis; /* Přidá výpustky, pokud je obsah oříznut */
 }

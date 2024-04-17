@@ -22,6 +22,7 @@
   color: white;
   max-width: 500px; /* nebo jiná maximální šířka */
   width: 90%; /* nebo méně, v závislosti na šířce obsahu */
+  margin: auto;
 }
 
 .modal h2 {
