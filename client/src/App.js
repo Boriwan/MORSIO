@@ -5,15 +5,11 @@ import About from "./Pages/About/About";
 import Session from "./Pages/Session/Session";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import SessionList from "./Components/SessionList/SessionList";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <div className="session-list">
-          <SessionList />
-        </div>
         <Routes>
           <Route exact path="/" element={<Session />} />
           <Route path="/session" element={<Session />} />

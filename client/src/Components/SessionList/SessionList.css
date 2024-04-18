@@ -12,13 +12,14 @@
 
 .session-list-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center ;
+  justify-content: center ;
   padding: 10px;
   font-size: 25px;
 }
 
 .session-list-h1 {
+
   margin: 0; /* Odstraní implicitní margin */
   font-weight: lighter;
   line-height: 1; /* Zajišťuje, že výška řádku nadpisu nezpůsobí posun */
@@ -29,6 +30,8 @@
   height: 65px;
   margin-right: 10px;
 }
+
+
 
 .session-list-title,
 .session-add-btn {
@@ -114,14 +117,12 @@
   box-sizing: border-box; /* Zahrne padding a border do šířky a výšky */
 }
 
-.session-edit-btn,
-.session-delete-btn {
+.session-edit-btn, .session-delete-btn {
   background: transparent; /* odstraní pozadí */
   border: none; /* odstraní rámeček */
   color: black; /* nastaví barvu ikon */
   cursor: pointer;
-  padding: 0 5px;
-  font-size: 20px;
+  padding: 0 5px;  font-size: 20px;
   margin-right: auto;
 }
 
@@ -135,15 +136,13 @@
   padding-right: 20px; /* Odsazení tlačítek od pravého kraje */
 }
 
-.session-edit-btn:hover,
-.session-delete-btn:hover {
+.session-edit-btn:hover, .session-delete-btn:hover {
   background-color: #67999b; /* Světlejší nebo tmavší barva pro hover efekt */
   color: #fff; /* Můžete změnit barvu textu, pokud potřebujete */
 }
 
 /* Případně můžete přidat stín pro tlačítka při najetí myši */
-.session-edit-btn:hover,
-.session-delete-btn:hover {
+.session-edit-btn:hover, .session-delete-btn:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -173,8 +172,7 @@
   background: #6e8ca0; /* tmavší barva thumb při najetí myší */
 }
 
+
 .session-list-tile-link {
   text-decoration: none;
 }
-
-

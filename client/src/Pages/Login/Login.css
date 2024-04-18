@@ -1,32 +1,31 @@
 form * {
-    color: white;
+  color: white;
 }
-
 h1 {
-    color: white;
-    margin-bottom: 10vh;
+  color: white;
+  margin-bottom: 10vh;
 }
 
 input {
-    max-width: 50vw;
+  max-width: 50vw;
 }
 
 .mb-3 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .container {
-    background-color: #041D2D;
-    border: 1px solid #041D2D;
-    border-radius: 20px;
-    padding: 5vw;
-    max-width: 60vw;
+  background-color: #041d2d;
+  border: 1px solid #041d2d;
+  border-radius: 20px;
+  padding: 5vw;
+  max-width: 60vw;
 }
 
 .mt-5 {
-    margin-top: 0 !important;
+  margin-top: 0 !important;
 }
