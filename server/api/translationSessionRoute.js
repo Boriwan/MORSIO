@@ -6,6 +6,7 @@ const getAbl = require('../abl/translationSession-abl/get-abl');
 const listAbl = require('../abl/translationSession-abl/list-all-abl');
 const updateAbl = require('../abl/translationSession-abl/update-abl');
 const listAllAbl = require('../abl/translationSession-abl/list-all-abl');
+const toggleUseAbl = require('../abl/translationSession-abl/toggleUse-abl');
 const verifyToken = require('../middleware/verifyToken'); // Ensure this path is correct
 const showMorseCodeAlphabetAbl = require('../abl/translationSession-abl/showMorseCodeAlphabet-abl');
 // POST method to add a new translation session
@@ -38,6 +39,10 @@ router.get('/morseAlphabet', verifyToken, async (req, res) => {
   showMorseCodeAlphabetAbl(req, res);
 });
 
+// PUT method to toggle the `inUse` status of a translation session
+router.put('/toggleUse/:id', verifyToken, async (req, res) => {
+  toggleUseAbl(req, res);
+});
 // DELETE method to delete a translation session by id
 router.delete('/:id',verifyToken, async (req, res) => {
   deleteAbl(req, res);

@@ -18,7 +18,10 @@ class TranslationSessionDao {
     const updatedSession = await TranslationSessionModel.findOneAndUpdate({ id: sessionId }, newData, { new: true });
     return updatedSession;
   }
-
+  async listByAuthor(authorId) {
+    // Fetch sessions from the database where the authorID matches the logged-in user's ID
+    return await this.model.find({ authorID: authorId });
+}
   async delete(sessionId) {
     // Delete based on custom 'id' field, not MongoDB's '_id'
     await TranslationSessionModel.findOneAndDelete({ id: sessionId });
