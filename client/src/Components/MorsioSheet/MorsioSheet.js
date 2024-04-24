@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import "./MorsioSheet.css"; // Ujistěte se, že tento soubor obsahuje výše uvedený CSS
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronLeft,
+  faChevronRight
+} from "@fortawesome/free-solid-svg-icons";
 
 function MorsioSheet() {
   const [isOpen, setIsOpen] = useState(true);
@@ -13,7 +18,7 @@ function MorsioSheet() {
     <div className={`morsio-sheet ${isOpen ? "open" : "closed"}`}>
       <div className="buttonClose">
         <button onClick={toggleSidebar} className="toggle-button">
-          {isOpen ? "<<" : ">>"}
+        {isOpen ? <FontAwesomeIcon icon={faChevronRight} color="white" /> :  <FontAwesomeIcon icon={faChevronLeft} color="white" />}
         </button>
       </div>
 

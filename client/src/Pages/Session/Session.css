@@ -6,3 +6,7 @@
 .session-page-container {
   height: 100%;
 }
+
+.morsio-cheatsheet {
+  height: 100% !important;
+}

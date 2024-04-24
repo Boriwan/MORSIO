@@ -1,37 +1,16 @@
-.morsio-sheet {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  background-color: #527796 !important;
-  color: black;
-  display: flex;
-  flex-direction: column;
-}
-
-.buttonClose {
-  margin-bottom: 5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .morsio-sheet h2 {
   margin-top: 0;
   color: black;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Zvětšuje velikost písma nadpisu */
+  line-height: 1.5; /* Zvětšuje výšku řádku, což zvětší celkovou výšku nadpisu */
   background-color: #8EB9B3;
-  border-radius: 10px;
-
+  border-radius: 15px;
+  padding: 10px;
 }
 .morsio-sheet {
-  width: 100%;
-  max-height: 100vh;
+  background-color: #527796 !important;
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
@@ -58,19 +37,29 @@
   width: 40px;
 }
 
+.buttonClose {
+  position: absolute; /* Absolutní pozicionování vzhledem k nejbližšímu relativně pozicionovanému rodiči */
+  top: 50%; /* Umístí tlačítko na střed v ose Y */
+  left: 0; /* Umístí tlačítko na začátek v ose X (vlevo) */
+  transform: translate(0, -50%); /* Posune tlačítko o 50% jeho výšky nahoru, aby bylo přesně ve středu */
+}
+
 .toggle-button {
-  position: absolute;
-  z-index: 10;
   border-radius: 10px;
   border: none;
   background-color: #8EB9B3;
-  width: 9vw;
+  color: white; /* Nastaví barvu textu nebo ikony na bílou */
+  width: 20px; /* Můžete přizpůsobit šířku podle potřeby */
+  height: 40px; /* Můžete přizpůsobit výšku podle potřeby */
+  display: flex; /* Používá flexbox pro centrování obsahu */
+  align-items: center; /* Centruje obsah tlačítka ve vertikálním směru */
+  justify-content: center; /* Centruje obsah tlačítka v horizontálním směru */
 }
 
 .morsio-sheet .morse-item {
   font-weight: bold;
   display: flex;
-  padding: 5px 50px;
+  padding: 5px 35px;
   border-bottom: 1px solid black;
 }
 
@@ -83,8 +72,6 @@
 .morsio-sheet .morse-item::before {
   content: attr(data-letter);
   flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: calc(50% - 10px); /* Nastaví šířku písmene na polovinu rodiče minus padding */
   text-align: left; /* Zarovnání textu doleva */
 }
 
@@ -92,4 +79,7 @@
   content: attr(data-code);
   flex-grow: 1;
   text-align: left; /* Zarovnání Morseovy abecedy doprava */
+  white-space: nowrap; /* Zajistí, že Morseův kód zůstane na jedné řádce */
+  overflow: hidden; /* Skryje přebytečný obsah, pokud by byl příliš dlouhý */
+  text-overflow: ellipsis; /* Přidá výpustky, pokud je obsah oříznut */
 }

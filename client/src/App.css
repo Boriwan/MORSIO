@@ -8,6 +8,7 @@
   align-items: center;
   box-sizing: border-box;
   background-color: #011313;
+  
 }
 
 .session-list,
@@ -15,10 +16,10 @@
   height: 100%;
   flex-grow: 1;
   border-radius: 20px;
-  margin: 10px;
+  margin: 0 10px;
 }
 
-.session-list.closed,
+
 .morsio-sheet.closed {
   width: 40px;
 }
@@ -28,7 +29,3 @@
 }
 
 
-.morsio-sheet {
-  flex: 0 0 10%;
-  background-color: #dee2e6;
-}
