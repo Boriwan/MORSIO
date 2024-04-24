@@ -1,0 +1,29 @@
+/* Author.css */
+.author-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    /* Add more styling as desired */
+  }
+  
+  .author-photo {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    border-radius: 50%; /* Circular photo */
+    margin-bottom: 10px;
+  }
+  
+  .author-name {
+    margin: 5px 0;
+    /* Add more styling as desired */
+  }
+  
+  .author-position {
+    color: #888888;
+    /* Add more styling as desired */
+  }
+
+  
+  

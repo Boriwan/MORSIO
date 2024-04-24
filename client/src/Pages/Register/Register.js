@@ -27,7 +27,7 @@ function Register() {
     }
     // Here you would handle the registration logic, like sending data to the backend
     console.log("Registration data:", data);
-    navigate('/home'); // Redirect to /home after successful registration
+    navigate('/session'); // Redirect to /home after successful registration
   }
 
   return (

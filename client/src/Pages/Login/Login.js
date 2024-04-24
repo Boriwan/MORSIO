@@ -10,7 +10,7 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Zde byste zpracovávali přihlášení (např. ověření s backendem)
-    navigate('/home');  // Přesměrování po úspěšném přihlášení
+    navigate('/session');  // Přesměrování po úspěšném přihlášení
   }
 
   return (

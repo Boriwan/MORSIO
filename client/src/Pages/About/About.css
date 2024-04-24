@@ -1,3 +1,23 @@
+body {
+  overflow: hidden !important;
+}
+
+
+.about-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%; 
+  overflow-y: auto; 
+  background-color: #041d2d;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px; 
+  box-sizing: border-box;
+}
+
+
+
 .about-page {
   width: 100%;
   height: 100%;
@@ -19,6 +39,81 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
+.authors-section {
+  width: 100%;
+}
+
+.technology-logo span {
+  margin-bottom: 2vh;
+  font-size: xx-large;
+  font-weight: bold;
+  clear: both;
+  white-space: nowrap;
+}
+
+.technology-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.technology-logo img {
+  width: 10vw;
+  height: auto;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+}
+
+.authors-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.author-card-row {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+
+.author-card {
+  flex-basis: calc(33.333% - 20px);
+  margin: 10px; 
+}
+
+.documentation-section {
+  width: 100%;
+  text-align: left;
+}
+
+.technologies-section {
+  width: 100%;
+  text-align: left;
+}
+
+.rowContainer {
+
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 5vh;
+
+}
+
+.technologies-logos-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+}
+
+.technology-logo {
+  width: 100px; 
+}
+
+
 
 .about-page-footer {
   color: #888888;
@@ -26,3 +121,65 @@
   bottom: 0;
   padding: 10px;
 }
+
+h2 {
+  text-align: left;
+  max-width: 100%;
+  padding-block: 5px;
+  border-radius: 10px;
+  color: white;
+  font-size: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+
+.about-page-container::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+/* Style for the "track" part of the scrollbar */
+.about-page-container::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track background */
+}
+
+/* Style for the "thumb" (the moving part of the scrollbar) */
+.about-page-container::-webkit-scrollbar-thumb {
+  background: #527796; /* Color of the thumb */
+  border-radius: 4px; /* Slightly rounded corners for the thumb */
+}
+
+/* Style for the thumb when the mouse hovers over it */
+.about-page-container::-webkit-scrollbar-thumb:hover {
+  background: #6e8ca0; /* Darker color on thumb hover */
+}
+
+
+.documentation-section {
+  text-align: center; /* Centers the header */
+}
+
+.documentation-cards-container {
+  display: flex;
+  justify-content: space-evenly; /* This will space your cards evenly */
+}
+
+.documentation-card {
+  text-decoration: none; /* Removes the underline from links */
+  color: currentColor; /* Inherits the text color */
+  margin: 10px; /* Adjust as needed */
+  cursor: pointer; /* Changes the cursor to signify this is clickable */
+}
+
+.documentation-image {
+  width: 100%; /* Or set a fixed width */
+  height: auto; /* Maintain aspect ratio */
+  /* Add a border, shadow, or other styles as needed */
+}
+
+.documentation-title {
+  margin-top: 8px; /* Space between the image and the text */
+  text-align: center;
+  /* Any additional styling for the title text */
+}
+

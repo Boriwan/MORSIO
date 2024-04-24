@@ -18,7 +18,8 @@ async function CreateAbl(req, res) {
         id: crypto.randomBytes(8).toString("hex"),
         name: body.name,
         authorID: req.user.id,  // Assuming req.user.id is the ID of the logged-in user
-        creationDate: new Date()  // Set the current date and time as the creation date
+        creationDate: new Date(),  // Set the current date and time as the creation date
+        inUse: false,
     };
 
     try {
