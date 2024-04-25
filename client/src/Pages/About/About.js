@@ -2,9 +2,9 @@ import React from "react";
 import "./About.css";
 import SessionList from "../../Components/SessionList/SessionList";
 import Author from '../../Components/Author/Author';
-import BusModel from '../../images/Bussinesmodel.png';
-import BusReq from '../../images/Businesrequest.png';
-import AppModel from '../../images/ApplicationModel.png';
+import BusModel from "../../images/Morsio_BM.png";
+import BusReq from "../../images/Morsio_BR.png";
+import AppModel from "../../images/Morsio_AM.png";
 
 
 
