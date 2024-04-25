@@ -117,9 +117,9 @@ body {
 
 .about-page-footer {
   color: #888888;
-  position: absolute;
+  position: relative;
   bottom: 0;
-  padding: 10px;
+  margin-bottom: -1rem;
 }
 
 h2 {

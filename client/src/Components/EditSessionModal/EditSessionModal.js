@@ -18,7 +18,7 @@ function EditSessionModal({ isOpen, onClose, session, onSave }) {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>Edit Session</h2>
+        <h2>Rename Session</h2>
         <input
           type="text"
           value={sessionName}

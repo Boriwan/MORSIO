@@ -25,7 +25,7 @@
   color: white;
   max-width: 500px; /* nebo jiná maximální šířka */
   width: 100%; /* nebo méně, v závislosti na šířce obsahu */
-  max-height: 30%;
+  max-height: 40%;
   box-sizing: border-box;
 }
 

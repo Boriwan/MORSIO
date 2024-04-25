@@ -45,7 +45,7 @@ function About() {
       <div className="about-page">
         <div className="about-page-container">
           <div className="heading">
-            <h1>About MORSIO</h1>
+            <h1>About Morsio</h1>
           </div>
 
           <section className="authors-section">
