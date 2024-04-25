@@ -2,21 +2,18 @@ body {
   overflow: hidden !important;
 }
 
-
 .about-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%; 
-  overflow-y: auto; 
+  width: 80%;
+  overflow-y: auto;
   background-color: #041d2d;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px; 
+  padding: 20px;
   box-sizing: border-box;
 }
-
-
 
 .about-page {
   width: 100%;
@@ -77,10 +74,9 @@ body {
   width: 100%;
 }
 
-
 .author-card {
   flex-basis: calc(33.333% - 20px);
-  margin: 10px; 
+  margin: 10px;
 }
 
 .documentation-section {
@@ -94,11 +90,9 @@ body {
 }
 
 .rowContainer {
-
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 5vh;
-
 }
 
 .technologies-logos-container {
@@ -106,14 +100,11 @@ body {
   flex-direction: column;
   justify-content: space-around;
   flex-wrap: wrap;
-
 }
 
 .technology-logo {
-  width: 100px; 
+  width: 100px;
 }
-
-
 
 .about-page-footer {
   color: #888888;
@@ -132,7 +123,6 @@ h2 {
   padding-top: 25px;
   padding-bottom: 25px;
 }
-
 
 .about-page-container::-webkit-scrollbar {
   width: 5px; /* Width of the scrollbar */
@@ -154,14 +144,17 @@ h2 {
   background: #6e8ca0; /* Darker color on thumb hover */
 }
 
-
 .documentation-section {
   text-align: center; /* Centers the header */
 }
 
 .documentation-cards-container {
   display: flex;
-  justify-content: space-evenly; /* This will space your cards evenly */
+  justify-content: space-evenly;
+}
+
+.documentation-cards-container a:hover {
+  color: #00ffff;
 }
 
 .documentation-card {
@@ -182,4 +175,3 @@ h2 {
   text-align: center;
   /* Any additional styling for the title text */
 }
-
