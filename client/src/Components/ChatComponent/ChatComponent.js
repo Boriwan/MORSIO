@@ -44,7 +44,7 @@ const ChatComponent = () => {
           value={input}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
-          placeholder="Enter Morse code here..."
+          placeholder="Enter Morse code here... (Use '/' to denote space between words)"
           className="morse-input"
         />
       </div>
