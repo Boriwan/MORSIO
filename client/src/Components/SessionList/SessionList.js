@@ -17,6 +17,7 @@ function SessionList() {
 
   // Funkce pro přidání nové session
   const addSession = () => {
+    
     const newSession = `New session`; // Vytvoří unikátní název pro novou session
     setSessions([...sessions, newSession]); // Přidá novou session do seznamu
   };

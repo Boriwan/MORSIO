@@ -19,3 +19,46 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
+
+.morse-input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+.message-container {
+  width: 90%;
+  overflow-y: auto;
+}
+
+.message {
+  background-color: #061f36;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Style the scrollbar itself */
+.message-container::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+
+/* Style the track (part the scrollbar can move within) */
+.message-container::-webkit-scrollbar-track {
+  background: #041d2d; /* color of the track */
+}
+
+/* Style the handle (draggable part of the scrollbar) */
+.message-container::-webkit-scrollbar-thumb {
+  background-color: #527796; /* color of the scrollbar thumb */
+  border-radius: 4px; /* roundness of the scrollbar thumb */
+  border: 2px solid #041d2d; /* creates padding around the scroll thumb */
+}
+
+/* Optional: Style the scrollbar when hovered */
+.message-container::-webkit-scrollbar-thumb:hover {
+  background-color: #4a6d7c; /* slightly darker version of the thumb color for hover effect */
+}
+
