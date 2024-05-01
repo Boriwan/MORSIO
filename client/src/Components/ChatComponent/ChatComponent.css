@@ -31,6 +31,9 @@
 .message-container {
   width: 90%;
   overflow-y: auto;
+  flex: 1;
+  overflow-y: auto;
+
 }
 
 .message {

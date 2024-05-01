@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ChatComponent.css";
 
 const morseToText = {
@@ -13,6 +13,15 @@ const morseToText = {
 const ChatComponent = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
@@ -26,7 +35,8 @@ const ChatComponent = () => {
       setInput("");
     }
   };
-   return (
+
+  return (
     <div className="chat-page">
       <div className="chat-page-container">
         <h1>Session</h1>
@@ -38,6 +48,7 @@ const ChatComponent = () => {
               <p><strong>Text:</strong> {msg.text}</p>
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
         <input
           type="text"
