@@ -5,7 +5,7 @@ import Author from "../../Components/Author/Author";
 import BusModel from "../../images/Morsio_BM.png";
 import BusReq from "../../images/Morsio_BR.png";
 import AppModel from "../../images/Morsio_AM.png";
-import { useNavigate } from 'react-router-dom'; // Přidáno pro navigaci
+import { useNavigate } from "react-router-dom";
 
 function About() {
   const documentationItems = [
@@ -37,7 +37,7 @@ function About() {
     {
       name: "Boris",
       surname: "Boček",
-      position: "Project manager",
+      position: "Project manager / IoT developer",
       photo:
         "https://media.licdn.com/dms/image/D4E03AQFm45cEFfOTWw/profile-displayphoto-shrink_400_400/0/1689364032433?e=2147483647&v=beta&t=OQzb_rjX__K2MCdenGF9P40S_h2eQF13nNhGOyI3-HU",
     },
@@ -76,7 +76,6 @@ function About() {
   const handleSelectSession = (sessionId) => {
     navigate(`/session/${sessionId}`);
   };
-
 
   return (
     <>
@@ -145,7 +144,7 @@ function About() {
                   ></img>
                 </div>
                 <div className="technology-logo">
-                  <span>Express</span>
+                  <span>Express JS</span>
                   <img
                     src="https://ajeetchaulagain.com/static/7cb4af597964b0911fe71cb2f8148d64/87351/express-js.png"
                     alt="ExpressJS_logo"

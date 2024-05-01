@@ -125,27 +125,24 @@ h2 {
 }
 
 .about-page-container::-webkit-scrollbar {
-  width: 5px; /* Width of the scrollbar */
+  width: 5px;
 }
 
-/* Style for the "track" part of the scrollbar */
 .about-page-container::-webkit-scrollbar-track {
-  background: transparent; /* Transparent track background */
+  background: transparent;
 }
 
-/* Style for the "thumb" (the moving part of the scrollbar) */
 .about-page-container::-webkit-scrollbar-thumb {
-  background: #527796; /* Color of the thumb */
-  border-radius: 4px; /* Slightly rounded corners for the thumb */
+  background: #527796;
+  border-radius: 4px;
 }
 
-/* Style for the thumb when the mouse hovers over it */
 .about-page-container::-webkit-scrollbar-thumb:hover {
-  background: #6e8ca0; /* Darker color on thumb hover */
+  background: #6e8ca0;
 }
 
 .documentation-section {
-  text-align: center; /* Centers the header */
+  text-align: center;
 }
 
 .documentation-cards-container {
@@ -158,20 +155,18 @@ h2 {
 }
 
 .documentation-card {
-  text-decoration: none; /* Removes the underline from links */
-  color: currentColor; /* Inherits the text color */
-  margin: 10px; /* Adjust as needed */
-  cursor: pointer; /* Changes the cursor to signify this is clickable */
+  text-decoration: none;
+  color: currentColor;
+  margin: 10px;
+  cursor: pointer;
 }
 
 .documentation-image {
-  width: 100%; /* Or set a fixed width */
-  height: auto; /* Maintain aspect ratio */
-  /* Add a border, shadow, or other styles as needed */
+  width: 100%;
+  height: auto;
 }
 
 .documentation-title {
-  margin-top: 8px; /* Space between the image and the text */
+  margin-top: 8px;
   text-align: center;
-  /* Any additional styling for the title text */
 }

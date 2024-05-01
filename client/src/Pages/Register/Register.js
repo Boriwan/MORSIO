@@ -23,27 +23,42 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError('');  // Resetování chybové zprávy
+    setError("");
     if (data.password !== data.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
     try {
-      const result = await registerUser(data.userName, data.email, data.password, data.confirmPassword, 'user');
+      const result = await registerUser(
+        data.userName,
+        data.email,
+        data.password,
+        data.confirmPassword,
+        "user"
+      );
       console.log("Registration successful:", result);
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Registration failed:', error);
-      if (error.response && error.response.data && typeof error.response.data === 'string') {
+      console.error("Registration failed:", error);
+      if (
+        error.response &&
+        error.response.data &&
+        typeof error.response.data === "string"
+      ) {
         setError(error.response.data);
-      } else if (error.response && error.response.data && error.response.data.error) {
+      } else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.error
+      ) {
         setError(error.response.data.error);
       } else {
-        setError('Failed to register due to server error. Please try again later.');
+        setError(
+          "Failed to register due to server error. Please try again later."
+        );
       }
     }
-  }
-  
+  };
 
   return (
     <div className="container">
@@ -51,12 +66,13 @@ function Register() {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
-            Email
+            E-mail
           </label>
           <input
             type="email"
             className="form-control"
             name="email"
+            placeholder="example@email.com"
             value={data.email}
             onChange={handleInputChange}
             required
@@ -70,6 +86,7 @@ function Register() {
             type="text"
             className="form-control"
             name="userName"
+            placeholder="John Doe"
             value={data.userName}
             onChange={handleInputChange}
             required

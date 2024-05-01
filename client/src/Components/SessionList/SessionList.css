@@ -12,17 +12,16 @@
 
 .session-list-header {
   display: flex;
-  align-items: center ;
-  justify-content: center ;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
   font-size: 25px;
 }
 
 .session-list-h1 {
-
-  margin: 0; /* Odstraní implicitní margin */
+  margin: 0;
   font-weight: lighter;
-  line-height: 1; /* Zajišťuje, že výška řádku nadpisu nezpůsobí posun */
+  line-height: 1;
 }
 
 .session-list-logo {
@@ -35,9 +34,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #fff; /* Přizpůsobte barvu podle vašeho designu */
+  color: #fff;
 }
-
 
 .session-list-title,
 .session-add-btn {
@@ -99,85 +97,82 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow: hidden; /* zabrání přetékání obsahu */
+  overflow: hidden;
 }
 
 .session-list-sessions {
-  flex-grow: 1; /* zajistí, že tento div zabere zbývající prostor */
-  overflow-y: auto; /* povolí scrollbar v tomto divu */
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .session-item {
-  background-color: #8eb9b3; /* Stejná barva jako tlačítko Add new session */
+  background-color: #8eb9b3;
   border: none;
   color: black;
   padding: 12px 0;
-  margin: 10px auto; /* Můžete upravit podle potřeby */
+  margin: 10px auto;
   border-radius: 20px;
   text-align: center;
   font-weight: bold;
-  width: 95%; /* nebo jinou šířku podle potřeby */
-  display: flex; /* pro aplikaci padding a margin jak na block element */
+  width: 95%;
+  display: flex;
   cursor: pointer;
   outline: none;
-  box-sizing: border-box; /* Zahrne padding a border do šířky a výšky */
+  box-sizing: border-box;
 }
 
-.session-edit-btn, .session-delete-btn {
-  background: transparent; /* odstraní pozadí */
-  border: none; /* odstraní rámeček */
-  color: black; /* nastaví barvu ikon */
+.session-edit-btn,
+.session-delete-btn {
+  background: transparent;
+  border: none;
+  color: black;
   cursor: pointer;
-  padding: 0 5px;  font-size: 20px;
+  padding: 0 5px;
+  font-size: 20px;
   margin-right: auto;
 }
 
 .session-item-text {
   flex-grow: 1;
-  padding-left: 20px; /* Odsazení textu od levého */
+  padding-left: 20px;
 }
 
 .session-btn-group {
   display: flex;
-  padding-right: 20px; /* Odsazení tlačítek od pravého kraje */
+  padding-right: 20px;
 }
 
-.session-edit-btn:hover, .session-delete-btn:hover {
-  background-color: #67999b; /* Světlejší nebo tmavší barva pro hover efekt */
-  color: #fff; /* Můžete změnit barvu textu, pokud potřebujete */
+.session-edit-btn:hover,
+.session-delete-btn:hover {
+  background-color: #67999b;
+  color: #fff;
 }
 
-/* Případně můžete přidat stín pro tlačítka při najetí myši */
-.session-edit-btn:hover, .session-delete-btn:hover {
+.session-edit-btn:hover,
+.session-delete-btn:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Můžete přidat specifické styly pro ikony z FontAwesome */
 .icon {
-  margin: 0 5px; /* přidá malý prostor okolo ikon */
+  margin: 0 5px;
 }
 
-/* Styl pro všechny scrollovací bary v kontejneru */
 .session-list-sessions::-webkit-scrollbar {
-  width: 5px; /* šířka scrollbaru */
+  width: 5px;
 }
 
-/* Styl pro "track" (část, po které se posouvá "thumb") */
 .session-list-sessions::-webkit-scrollbar-track {
-  background: transparent; /* průhledné pozadí */
+  background: transparent;
 }
 
-/* Styl pro "thumb" (posuvný element scrollbaru) */
 .session-list-sessions::-webkit-scrollbar-thumb {
-  background: #527796; /* barva thumb */
-  border-radius: 4px; /* mírně zaoblené rohy */
+  background: #527796;
+  border-radius: 4px;
 }
 
-/* Styl pro "thumb" při najetí myší */
 .session-list-sessions::-webkit-scrollbar-thumb:hover {
-  background: #6e8ca0; /* tmavší barva thumb při najetí myší */
+  background: #6e8ca0;
 }
-
 
 .session-list-tile-link {
   text-decoration: none;

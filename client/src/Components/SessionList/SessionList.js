@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import './SessionList.css';
-import { Link, useNavigate } from 'react-router-dom';
-import img from '../../images/Logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect } from "react";
+import "./SessionList.css";
+import { Link, useNavigate } from "react-router-dom";
+import img from "../../images/Logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
   faCog,
   faInfoCircle,
   faPencilAlt,
   faTimes,
-  faSignOutAlt
-} from '@fortawesome/free-solid-svg-icons';
-import EditSessionModal from '../EditSessionModal/EditSessionModal';
-import { logoutUser, listSessions } from '../../apiService';
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import EditSessionModal from "../EditSessionModal/EditSessionModal";
+import { logoutUser, listSessions } from "../../apiService";
 
 function SessionList({ onSelectSession }) {
   const [sessions, setSessions] = useState([]);
@@ -27,7 +27,7 @@ function SessionList({ onSelectSession }) {
         const data = await listSessions();
         setSessions(data);
       } catch (error) {
-        console.error('Failed to fetch sessions:', error);
+        console.error("Failed to fetch sessions:", error);
       }
     };
 
@@ -38,7 +38,7 @@ function SessionList({ onSelectSession }) {
     if (onSelectSession) {
       onSelectSession(sessionId);
     } else {
-      navigate(`/session/${sessionId}`); // Defaultní akce, pokud onSelectSession není poskytnuta
+      navigate(`/session/${sessionId}`);
     }
   };
 
@@ -51,17 +51,17 @@ function SessionList({ onSelectSession }) {
   };
 
   const deleteSession = (sessionId) => {
-    setSessions(sessions.filter(session => session.id !== sessionId));
+    setSessions(sessions.filter((session) => session.id !== sessionId));
   };
 
   const handleEditClick = (id) => {
-    const sessionToEdit = sessions.find(session => session.id === id);
+    const sessionToEdit = sessions.find((session) => session.id === id);
     setEditingSession(sessionToEdit);
     setIsModalOpen(true);
   };
 
   const handleSave = (id, newName) => {
-    const updatedSessions = sessions.map(session =>
+    const updatedSessions = sessions.map((session) =>
       session.id === id ? { ...session, name: newName } : session
     );
     setSessions(updatedSessions);
@@ -81,18 +81,28 @@ function SessionList({ onSelectSession }) {
             Add new session
           </button>
           <div className="session-list-sessions">
-            {sessions.map(session => (
-              <div key={session.id} onClick={() => handleSessionClick(session.id)} className="session-item">
+            {sessions.map((session) => (
+              <div
+                key={session.id}
+                onClick={() => handleSessionClick(session.id)}
+                className="session-item"
+              >
                 <span className="session-item-text">{session.name}</span>
                 <div className="session-btn-group">
                   <button
-                    onClick={(e) => { e.stopPropagation(); handleEditClick(session.id); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEditClick(session.id);
+                    }}
                     className="session-edit-btn"
                   >
                     <FontAwesomeIcon icon={faPencilAlt} />
                   </button>
                   <button
-                    onClick={(e) => { e.stopPropagation(); deleteSession(session.id); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteSession(session.id);
+                    }}
                     className="session-delete-btn"
                   >
                     <FontAwesomeIcon icon={faTimes} />

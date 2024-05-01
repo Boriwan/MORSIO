@@ -1,57 +1,71 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../apiService';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../apiService";
 import "./Login.css";
 
-function Login({ setIsLoggedIn }) { // Přidání prop pro setIsLoggedIn
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+function Login({ setIsLoggedIn }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError('');
+    setError("");
     try {
-      const data = await loginUser(username, password);
+      const data = await loginUser(email, password);
       console.log(data);
-      setIsLoggedIn(true); // Aktualizace stavu isLoggedIn
-      navigate('/session');
+      setIsLoggedIn(true);
+      navigate("/session");
     } catch (error) {
-      console.error('Login failed:', error);
-      setError('Invalid login credentials. Please try again.');
+      console.error("Login failed:", error);
+      setError("Invalid login credentials. Please try again.");
     }
   };
 
   return (
     <div className="container mt-5">
-      <h1>Přihlášení</h1>
+      <h1>Log in</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">Uživatelské jméno</label>
+          <label htmlFor="email" className="form-label">
+            E-mail
+          </label>
           <input
             type="email"
             className="form-control"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            placeholder="Your e-mail"
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">Heslo</label>
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
             type="password"
             className="form-control"
             id="password"
             value={password}
+            placeholder="Your password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           {error && <div className="text-danger">{error}</div>}
         </div>
-        <button type="submit" className="btn btn-primary">Přihlásit se</button>
-        <button type="button" className="btn btn-link" onClick={() => navigate('/register')}>Registrace</button>
+        <button type="submit" className="btn btn-primary">
+          Log in
+        </button>
+        <button
+          type="button"
+          className="btn btn-link"
+          onClick={() => navigate("/register")}
+        >
+          Regiser
+        </button>
       </form>
     </div>
   );

@@ -23,8 +23,8 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: white;
-  max-width: 500px; /* nebo jiná maximální šířka */
-  width: 100%; /* nebo méně, v závislosti na šířce obsahu */
+  max-width: 500px;
+  width: 100%;
   max-height: 40%;
   box-sizing: border-box;
 }
@@ -53,13 +53,12 @@
 
 .modal-actions {
   display: flex;
-  justify-content: center; /* nebo 'space-around' pro rovnoměrné rozložení */
-  padding: 1em; /* Přidá trochu prostoru okolo tlačítek */
+  justify-content: center;
+  padding: 1em;
 }
 
 .modal-action-button {
-  margin: 0 0.5em; /* Přidá trochu prostoru mezi tlačítka */
-  /* Další styly pro tlačítka */
+  margin: 0 0.5em;
 }
 
 .modal button:hover {
@@ -67,7 +66,7 @@
 }
 
 .modal button:last-child {
-  background-color: #f26457; /* červené tlačítko pro Cancel */
+  background-color: #f26457;
 }
 
 .modal button:last-child:hover {

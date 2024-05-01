@@ -7,7 +7,7 @@ function EditSessionModal({ isOpen, onClose, session, onSave }) {
   const handleSave = () => {
     if (session) {
       onSave(session.id, sessionName);
-      onClose(); // Zavření modálního okna po uložení
+      onClose();
     }
   };
 

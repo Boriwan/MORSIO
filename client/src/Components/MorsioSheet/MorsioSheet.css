@@ -1,10 +1,9 @@
-
 .morsio-sheet h2 {
   margin-top: 0;
   color: black;
-  font-size: 1.2em; /* Zvětšuje velikost písma nadpisu */
-  line-height: 1.5; /* Zvětšuje výšku řádku, což zvětší celkovou výšku nadpisu */
-  background-color: #8EB9B3;
+  font-size: 1.2em;
+  line-height: 1.5;
+  background-color: #8eb9b3;
   border-radius: 15px;
   padding: 10px;
 }
@@ -38,22 +37,22 @@
 }
 
 .buttonClose {
-  position: absolute; /* Absolutní pozicionování vzhledem k nejbližšímu relativně pozicionovanému rodiči */
-  top: 50%; /* Umístí tlačítko na střed v ose Y */
-  left: 0; /* Umístí tlačítko na začátek v ose X (vlevo) */
-  transform: translate(0, -50%); /* Posune tlačítko o 50% jeho výšky nahoru, aby bylo přesně ve středu */
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
 }
 
 .toggle-button {
   border-radius: 10px;
   border: none;
-  background-color: #8EB9B3;
-  color: white; /* Nastaví barvu textu nebo ikony na bílou */
-  width: 20px; /* Můžete přizpůsobit šířku podle potřeby */
-  height: 40px; /* Můžete přizpůsobit výšku podle potřeby */
-  display: flex; /* Používá flexbox pro centrování obsahu */
-  align-items: center; /* Centruje obsah tlačítka ve vertikálním směru */
-  justify-content: center; /* Centruje obsah tlačítka v horizontálním směru */
+  background-color: #8eb9b3;
+  color: white;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .morsio-sheet .morse-item {
@@ -72,14 +71,14 @@
 .morsio-sheet .morse-item::before {
   content: attr(data-letter);
   flex-grow: 0;
-  text-align: left; /* Zarovnání textu doleva */
+  text-align: left;
 }
 
 .morsio-sheet .morse-item::after {
   content: attr(data-code);
   flex-grow: 1;
-  text-align: left; /* Zarovnání Morseovy abecedy doprava */
-  white-space: nowrap; /* Zajistí, že Morseův kód zůstane na jedné řádce */
-  overflow: hidden; /* Skryje přebytečný obsah, pokud by byl příliš dlouhý */
-  text-overflow: ellipsis; /* Přidá výpustky, pokud je obsah oříznut */
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

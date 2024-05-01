@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import "./MorsioSheet.css"; // Ujistěte se, že tento soubor obsahuje výše uvedený CSS
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import "./MorsioSheet.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function MorsioSheet() {
   const [isOpen, setIsOpen] = useState(true);
 
-  // Funkce pro přepnutí stavu
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -18,7 +17,11 @@ function MorsioSheet() {
     <div className={`morsio-sheet ${isOpen ? "open" : "closed"}`}>
       <div className="buttonClose">
         <button onClick={toggleSidebar} className="toggle-button">
-        {isOpen ? <FontAwesomeIcon icon={faChevronRight} color="white" /> :  <FontAwesomeIcon icon={faChevronLeft} color="white" />}
+          {isOpen ? (
+            <FontAwesomeIcon icon={faChevronRight} color="white" />
+          ) : (
+            <FontAwesomeIcon icon={faChevronLeft} color="white" />
+          )}
         </button>
       </div>
 
@@ -51,7 +54,6 @@ function MorsioSheet() {
           <div className="morse-item" data-letter="X" data-code="-..-"></div>
           <div className="morse-item" data-letter="Y" data-code="-.--"></div>
           <div className="morse-item" data-letter="Z" data-code="--.."></div>
-
         </>
       )}
     </div>
