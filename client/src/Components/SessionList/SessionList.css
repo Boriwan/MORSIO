@@ -177,3 +177,6 @@
 .session-list-tile-link {
   text-decoration: none;
 }
+.session-in-use {
+  background-color: #29a871;
+}

@@ -85,7 +85,7 @@ function SessionList({ onSelectSession }) {
               <div
                 key={session.id}
                 onClick={() => handleSessionClick(session.id)}
-                className="session-item"
+                className={`session-item ${session.inUse ? "session-in-use" : ""}`}
               >
                 <span className="session-item-text">{session.name}</span>
                 <div className="session-btn-group">
