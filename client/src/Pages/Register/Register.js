@@ -1,41 +1,58 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import "./Register.css"; 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../apiService"; // Importujte funkci pro registraci
+import "./Register.css";
 
 function Register() {
   const [data, setData] = useState({
-    userName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
+  const [error, setError] = useState(""); // Přidání stavové proměnné pro chybu
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setData({
       ...data,
-      [name]: value
+      [name]: value,
     });
-  }
+  };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');  // Resetování chybové zprávy
     if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
-    // Here you would handle the registration logic, like sending data to the backend
-    console.log("Registration data:", data);
-    navigate('/session'); // Redirect to /home after successful registration
+    try {
+      const result = await registerUser(data.userName, data.email, data.password, data.confirmPassword, 'user');
+      console.log("Registration successful:", result);
+      navigate('/login');
+    } catch (error) {
+      console.error('Registration failed:', error);
+      if (error.response && error.response.data && typeof error.response.data === 'string') {
+        setError(error.response.data);
+      } else if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        setError('Failed to register due to server error. Please try again later.');
+      }
+    }
   }
+  
 
   return (
     <div className="container">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
           <input
             type="email"
             className="form-control"
@@ -46,7 +63,9 @@ function Register() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="userName" className="form-label">Username</label>
+          <label htmlFor="userName" className="form-label">
+            Username
+          </label>
           <input
             type="text"
             className="form-control"
@@ -57,7 +76,9 @@ function Register() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
             type="password"
             className="form-control"
@@ -68,7 +89,9 @@ function Register() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+          <label htmlFor="confirmPassword" className="form-label">
+            Confirm Password
+          </label>
           <input
             type="password"
             className="form-control"
@@ -77,9 +100,18 @@ function Register() {
             onChange={handleInputChange}
             required
           />
+          {error && <div className="text-danger mt-2">{error}</div>}
         </div>
-        <button type="submit" className="btn btn-primary">Register</button>
-        <button type="button" className="btn btn-link" onClick={() => navigate('/login')}>Login</button>
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
+        <button
+          type="button"
+          className="btn btn-link"
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </button>
       </form>
     </div>
   );

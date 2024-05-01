@@ -31,6 +31,12 @@
   margin-right: 10px;
 }
 
+.logout-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff; /* Přizpůsobte barvu podle vašeho designu */
+}
 
 
 .session-list-title,
