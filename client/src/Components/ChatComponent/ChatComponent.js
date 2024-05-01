@@ -29,7 +29,7 @@ const ChatComponent = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter' && input.trim() !== "") {
-      const translation = input.trim().split(" ").map(code => morseToText[code] || "?").join("");
+      const translation = input.trim().split(" ").map(code => morseToText[code] || "Incorrect input").join("");
       const newMessage = { morse: input.trim(), text: translation };
       setMessages([...messages, newMessage]);
       setInput("");
@@ -43,7 +43,7 @@ const ChatComponent = () => {
         
         <div className="message-container">
           {messages.map((msg, index) => (
-            <div key={index} className="message">
+            <div key={index} className={`message ${index === messages.length - 1 ? "latest-message" : ""}`}>
               <p><strong>Morse:</strong> {msg.morse}</p>
               <p><strong>Text:</strong> {msg.text}</p>
             </div>
