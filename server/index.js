@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+var cors = require('cors')
+
+app.use(cors())
+
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 

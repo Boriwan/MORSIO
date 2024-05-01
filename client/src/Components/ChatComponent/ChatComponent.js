@@ -1,46 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./ChatComponent.css";
+import React, { useEffect, useRef } from 'react';
+import './ChatComponent.css';
 
-const morseToText = {
-  ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E",
-  "..-.": "F", "--.": "G", "....": "H", "..": "I", ".---": "J",
-  "-.-": "K", ".-..": "L", "--": "M", "-.": "N", "---": "O",
-  ".--.": "P", "--.-": "Q", ".-.": "R", "...": "S", "-": "T",
-  "..-": "U", "...-": "V", ".--": "W", "-..-": "X", "-.--": "Y",
-  "--..": "Z", "/": " "  // Use '/' to denote space between words
-};
-
-const ChatComponent = () => {
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]);
+const ChatComponent = ({ messages }) => {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  const handleInputChange = (event) => {
-    setInput(event.target.value);
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && input.trim() !== "") {
-      const translation = input.trim().split(" ").map(code => morseToText[code] || "Incorrect input").join("");
-      const newMessage = { morse: input.trim(), text: translation };
-      setMessages([...messages, newMessage]);
-      setInput("");
-    }
-  };
-
   return (
     <div className="chat-page">
       <div className="chat-page-container">
         <h1>Session</h1>
-        
         <div className="message-container">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${index === messages.length - 1 ? "latest-message" : ""}`}>
@@ -50,13 +25,12 @@ const ChatComponent = () => {
           ))}
           <div ref={messagesEndRef} />
         </div>
+        {/* Případně můžete přidat input field pokud chcete umožnit psaní Morse kódu přímo v chatu */}
         <input
           type="text"
-          value={input}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-          placeholder="Enter Morse code here... (Use '/' to denote space between words)"
           className="morse-input"
+          placeholder="Enter Morse code here... (Use '/' to denote space between words)"
+          // zde přidáte logiku pro odesílání zpráv, pokud je to požadováno
         />
       </div>
     </div>
