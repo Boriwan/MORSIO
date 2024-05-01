@@ -5,6 +5,7 @@ import Author from "../../Components/Author/Author";
 import BusModel from "../../images/Morsio_BM.png";
 import BusReq from "../../images/Morsio_BR.png";
 import AppModel from "../../images/Morsio_AM.png";
+import { useNavigate } from 'react-router-dom'; // Přidáno pro navigaci
 
 function About() {
   const documentationItems = [
@@ -69,6 +70,13 @@ function About() {
         "https://pbs.twimg.com/profile_images/1232256905445244928/ZYHE79hx_400x400.jpg",
     },
   ];
+
+  const navigate = useNavigate();
+
+  const handleSelectSession = (sessionId) => {
+    navigate(`/session/${sessionId}`);
+  };
+
 
   return (
     <>

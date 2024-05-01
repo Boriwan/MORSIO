@@ -25,7 +25,7 @@ function SessionList({ onSelectSession }) {
     const fetchSessions = async () => {
       try {
         const data = await listSessions();
-        setSessions(data); // Make sure your API returns the array directly
+        setSessions(data);
       } catch (error) {
         console.error('Failed to fetch sessions:', error);
       }
@@ -33,6 +33,14 @@ function SessionList({ onSelectSession }) {
 
     fetchSessions();
   }, []);
+
+  const handleSessionClick = (sessionId) => {
+    if (onSelectSession) {
+      onSelectSession(sessionId);
+    } else {
+      navigate(`/session/${sessionId}`); // Defaultní akce, pokud onSelectSession není poskytnuta
+    }
+  };
 
   const handleLogout = async () => {
     await logoutUser(navigate);
@@ -74,7 +82,7 @@ function SessionList({ onSelectSession }) {
           </button>
           <div className="session-list-sessions">
             {sessions.map(session => (
-              <div key={session.id} onClick={() => onSelectSession(session.id)} className="session-item">
+              <div key={session.id} onClick={() => handleSessionClick(session.id)} className="session-item">
                 <span className="session-item-text">{session.name}</span>
                 <div className="session-btn-group">
                   <button

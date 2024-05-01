@@ -24,6 +24,7 @@ function App() {
 
           {isLoggedIn ? (
             <>
+              <Route path="/session/:sessionId" element={<Session />} />
               <Route path="/session" element={<Session />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<Navigate to="/session" />} />
