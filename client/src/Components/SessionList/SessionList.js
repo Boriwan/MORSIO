@@ -12,11 +12,13 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import EditSessionModal from "../EditSessionModal/EditSessionModal";
+import ProfileModal from "../ProfileModal/ProfileModal";
 import { logoutUser, listSessions } from "../../apiService";
 
 function SessionList({ onSelectSession }) {
   const [sessions, setSessions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
 
   const navigate = useNavigate();
@@ -116,7 +118,7 @@ function SessionList({ onSelectSession }) {
           <button onClick={handleLogout} className="icon logout-icon">
             <FontAwesomeIcon icon={faSignOutAlt} />
           </button>
-          <FontAwesomeIcon icon={faCircleUser} className="icon profile-icon" />
+          <FontAwesomeIcon icon={faCircleUser} className="icon profile-icon" onClick={() => setIsProfileModalOpen(true)}/>
           <Link to="/about">
             <FontAwesomeIcon icon={faInfoCircle} className="icon info-icon" />
           </Link>
@@ -130,6 +132,13 @@ function SessionList({ onSelectSession }) {
           onClose={() => setIsModalOpen(false)}
           session={editingSession}
           onSave={handleSave}
+        />
+      )}
+
+      {isProfileModalOpen && (
+        <ProfileModal
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
         />
       )}
     </>
