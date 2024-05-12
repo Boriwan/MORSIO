@@ -6,7 +6,9 @@
   background-color: #8eb9b3;
   border-radius: 15px;
   padding: 10px;
+  text-align: center;
 }
+
 .morsio-sheet {
   background-color: #527796 !important;
   height: 100%;
@@ -15,21 +17,8 @@
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
   position: relative;
-}
-
-.morsio-sheet::-webkit-scrollbar {
-  display: none;
-}
-
-.morsio-sheet {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.morsio-sheet .morse-item:last-child {
-  border-bottom: none;
+  overflow: hidden;
 }
 
 .morsio-sheet.closed {
@@ -55,11 +44,33 @@
   justify-content: center;
 }
 
+.morse-list {
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #8eb9b3 transparent;
+  padding-bottom: 1rem;
+}
+
+.morse-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.morse-list::-webkit-scrollbar-thumb {
+  background-color: #8eb9b3;
+  border-radius: 10px;
+}
+
 .morsio-sheet .morse-item {
   font-weight: bold;
   display: flex;
   padding: 5px 35px;
   border-bottom: 1px solid black;
+}
+
+.morsio-sheet .morse-item:hover {
+  color: #01ffff;
+  cursor: pointer;
 }
 
 .morsio-sheet .morse-item::before,
@@ -69,7 +80,7 @@
 }
 
 .morsio-sheet .morse-item::before {
-  content: attr(data-letter);
+  content: attr(data-character);
   flex-grow: 0;
   text-align: left;
 }

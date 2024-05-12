@@ -47,10 +47,10 @@ const ChatComponent = ({ sessionId }) => {
                 index === messages.length - 1 ? "latest-message" : ""
               }`}
             >
-              {" "}
               <p>
                 <strong>Morse:</strong> {msg.morse}
               </p>
+              <div className="line"></div>
               <p>
                 <strong>Text:</strong> {msg.text}
               </p>
