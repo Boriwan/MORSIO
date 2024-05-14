@@ -1,33 +1,69 @@
-form * {
-  color: white;
+.App {
+  background-color: #041d2d;
 }
 
-h1 {
-  color: white;
-  margin-bottom: 3vh;
-}
-
-input {
-  max-width: 50vw;
-}
-
-.mb-3 {
+.register-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
 }
 
-.container {
-  background-color: #041d2d;
+.register-page h1 {
+  font-size: 50px; /* Zmenšení fontu */
+  color: white;
+  margin-bottom: 5vh; /* Zmenšení mezery pod nadpisem */
+  text-align: center;
+}
+
+.register-page .header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5vh; /* Zmenšení mezery pod logem a názvem */
+}
+
+.register-page .logo {
+  height: 100px; /* Zmenšení loga */
+  margin-right: 10px;
+}
+
+.register-page .app-name {
+  color: white;
+  font-size: 50px; /* Zmenšení názvu aplikace */
+}
+
+.register-page .container {
+  background-color: #527796;
   border: 1px solid #041d2d;
   border-radius: 20px;
-  padding: 5vw;
-  max-width: 60vw;
-  margin: 10vw;
+  padding: 3vw; /* Zmenšení paddingu */
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
-.mt-5 {
-  margin-top: 0 !important;
+.register-page form * {
+  color: white;
+}
+
+.register-page input {
+  width: 90%;
+  padding: 10px; /* Zmenšení paddingu inputů */
+  margin-bottom: 3vh; /* Zmenšení mezery pod inputy */
+}
+
+.register-page button {
+  width: 45%;
+  margin-top: 1vh; /* Zmenšení mezery nad tlačítky */
+}
+
+.register-page .mb-3 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-page .text-danger {
+  color: red;
 }

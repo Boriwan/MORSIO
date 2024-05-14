@@ -1,31 +1,69 @@
-form * {
-  color: white;
-}
-h1 {
-  color: white;
-  margin-bottom: 10vh;
+.App {
+  background-color: #041d2d;
 }
 
-input {
-  max-width: 50vw;
-}
-
-.mb-3 {
+.login-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
 }
 
-.container {
-  background-color: #041d2d;
+.login-page h1 {
+  font-size: 70px;
+  color: white;
+  margin-bottom: 10vh;
+  text-align: center;
+}
+
+.login-page .header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7vh;
+}
+
+.login-page .logo {
+  height: 125px;
+  margin-right: 10px;
+}
+
+.login-page .app-name {
+  color: white;
+  font-size: 60px;
+}
+
+.login-page .container {
+  background-color: #527796 ;
   border: 1px solid #041d2d;
   border-radius: 20px;
-  padding: 5vw;
-  max-width: 60vw;
+  padding: 4vw;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
-.mt-5 {
-  margin-top: 0 !important;
+.login-page form * {
+  color: white;
+}
+
+.login-page input {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 5vh;
+}
+
+.login-page button {
+  width: 45%;
+  margin-top: 2vh;
+}
+
+.login-page .mb-3 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-page .text-danger {
+  color: red;
 }

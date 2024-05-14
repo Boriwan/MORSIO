@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../apiService";
+import Logo from '../../images/Logo.png'; // Import logo
 import "./Login.css";
 
 function Login({ setIsLoggedIn }) {
@@ -24,49 +25,57 @@ function Login({ setIsLoggedIn }) {
   };
 
   return (
-    <div className="container mt-5">
-      <h1>Log in</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            E-mail
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            value={email}
-            placeholder="Your e-mail"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            value={password}
-            placeholder="Your password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {error && <div className="text-danger">{error}</div>}
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Log in
-        </button>
-        <button
-          type="button"
-          className="btn btn-link"
-          onClick={() => navigate("/register")}
-        >
-          Regiser
-        </button>
-      </form>
+    <div className="login-page">
+      <div className="header">
+        <img src={Logo} alt="Logo" className="logo" />
+        <h2 className="app-name">Morsio</h2>
+      </div>
+      <div className="container">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              E-mail
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              value={email}
+              placeholder="Your e-mail"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              value={password}
+              placeholder="Your password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {error && <div className="text-danger">{error}</div>}
+          </div>
+          <div className="button-group">
+            <button type="submit" className="btn btn-primary">
+              Login
+            </button>
+            <button
+              type="button"
+              className="btn btn-link"
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
