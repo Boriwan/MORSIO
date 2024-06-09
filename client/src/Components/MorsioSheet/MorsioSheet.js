@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MorsioSheet.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,9 +8,29 @@ import {
 
 function MorsioSheet() {
   const [isOpen, setIsOpen] = useState(true);
+  const [ws, setWs] = useState(null);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    // Create a WebSocket connection
+    const socket = new WebSocket("ws://localhost:1880/ws/morse");
+    setWs(socket);
+
+    // Cleanup on component unmount
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []);
+
+  const sendCharacter = (character) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(character); // Send the character directly
+    }
   };
 
   // Define the alphabet and numbers with their corresponding Morse code
@@ -75,6 +95,7 @@ function MorsioSheet() {
                 className="morse-item"
                 data-character={pair.character}
                 data-code={pair.code}
+                onClick={() => sendCharacter(pair.character)}
               ></div>
             ))}
           </div>
