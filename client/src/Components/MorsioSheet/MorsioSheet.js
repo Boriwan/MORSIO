@@ -16,7 +16,7 @@ function MorsioSheet() {
 
   useEffect(() => {
     // Create a WebSocket connection
-    const socket = new WebSocket("ws://localhost:1880/ws/morse");
+    const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
     setWs(socket);
 
     // Cleanup on component unmount

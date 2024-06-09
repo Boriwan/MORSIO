@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../apiService"; // Importujte funkci pro registraci
-import Logo from "../../images/Logo.png"; // Import logo
+import { registerUser } from "../../apiService";
+import Logo from "../../images/Logo.png"; 
 import "./Register.css";
 
 function Register() {
@@ -11,7 +11,7 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState(""); // Přidání stavové proměnné pro chybu
+  const [error, setError] = useState(""); 
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {

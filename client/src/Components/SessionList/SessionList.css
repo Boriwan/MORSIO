@@ -121,6 +121,10 @@
   box-sizing: border-box;
 }
 
+.session-item:hover {
+  background-color: #6c8f8a;
+}
+
 .session-edit-btn,
 .session-delete-btn {
   background: transparent;
@@ -178,5 +182,5 @@
   text-decoration: none;
 }
 .session-in-use {
-  background-color: #00FFFF;
+  background-color: #00ffff;
 }

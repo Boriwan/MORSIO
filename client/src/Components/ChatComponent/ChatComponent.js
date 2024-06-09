@@ -4,7 +4,9 @@ import { getTranslationsBySession } from "../../apiService";
 
 const ChatComponent = ({ sessionId }) => {
   const [messages, setMessages] = useState([]);
+  const [receivedMorse, setReceivedMorse] = useState("");
   const messagesEndRef = useRef(null);
+  const [ws, setWs] = useState(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,6 +37,30 @@ const ChatComponent = ({ sessionId }) => {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    // Create a WebSocket connection
+    const socket = new WebSocket("ws://localhost:1880/ws/morse");
+    setWs(socket);
+
+    // Handle incoming messages
+    socket.onmessage = (event) => {
+      setReceivedMorse(event.data);
+    };
+
+    // Cleanup on component unmount
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []);
+
+  const sendCharacter = (character) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(character); // Send the character directly
+    }
+  };
+
   return (
     <div className="chat-page">
       <div className="chat-page-container">
@@ -62,6 +88,8 @@ const ChatComponent = ({ sessionId }) => {
           type="text"
           className="morse-input"
           placeholder="Enter Morse code here... (Use 'DOUBLE SPACE' to denote space between words)"
+          value={receivedMorse} // Bind the input value to the received Morse code
+          readOnly // Make the input read-only if you don't want user input
         />
       </div>
     </div>
