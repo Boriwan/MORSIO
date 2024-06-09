@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../apiService"; // Importujte funkci pro registraci
-import Logo from '../../images/Logo.png'; // Import logo
+import Logo from "../../images/Logo.png"; // Import logo
 import "./Register.css";
 
 function Register() {
@@ -71,9 +71,6 @@ function Register() {
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              E-mail
-            </label>
             <input
               type="email"
               className="form-control"
@@ -85,9 +82,6 @@ function Register() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="userName" className="form-label">
-              Username
-            </label>
             <input
               type="text"
               className="form-control"
@@ -99,26 +93,22 @@ function Register() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
             <input
               type="password"
               className="form-control"
               name="password"
+              placeholder="Password"
               value={data.password}
               onChange={handleInputChange}
               required
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label">
-              Confirm Password
-            </label>
             <input
               type="password"
               className="form-control"
               name="confirmPassword"
+              placeholder="Confirm password"
               value={data.confirmPassword}
               onChange={handleInputChange}
               required
@@ -126,15 +116,15 @@ function Register() {
             {error && <div className="text-danger mt-2">{error}</div>}
           </div>
           <div className="button-group">
-            <button type="submit" className="btn btn-primary">
-              Register
-            </button>
             <button
               type="button"
-              className="btn btn-link"
+              className="btn"
               onClick={() => navigate("/login")}
             >
               Login
+            </button>
+            <button type="submit" className="btn confirm_button">
+              Register
             </button>
           </div>
         </form>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../apiService";
-import Logo from '../../images/Logo.png'; // Import logo
+import Logo from "../../images/Logo.png";
 import "./Login.css";
 
 function Login({ setIsLoggedIn }) {
@@ -34,9 +34,6 @@ function Login({ setIsLoggedIn }) {
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              E-mail
-            </label>
             <input
               type="email"
               className="form-control"
@@ -48,9 +45,6 @@ function Login({ setIsLoggedIn }) {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
             <input
               type="password"
               className="form-control"
@@ -63,15 +57,15 @@ function Login({ setIsLoggedIn }) {
             {error && <div className="text-danger">{error}</div>}
           </div>
           <div className="button-group">
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
             <button
               type="button"
-              className="btn btn-link"
+              className="btn"
               onClick={() => navigate("/register")}
             >
               Register
+            </button>
+            <button type="submit" className="btn confirm_button">
+              Login
             </button>
           </div>
         </form>

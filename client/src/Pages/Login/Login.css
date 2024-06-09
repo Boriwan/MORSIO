@@ -1,45 +1,42 @@
-.App {
-  background-color: #041d2d;
-}
-
 .login-page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.login-page h1 {
-  font-size: 70px;
-  color: white;
-  margin-bottom: 10vh;
-  text-align: center;
-}
-
 .login-page .header {
   display: flex;
   align-items: center;
-  margin-bottom: 7vh;
 }
 
 .login-page .logo {
-  height: 125px;
+  height: 75px;
   margin-right: 10px;
 }
 
 .login-page .app-name {
   color: white;
   font-size: 60px;
+  font-weight: lighter;
+}
+
+.login-page h1 {
+  font-size: 50px;
+  color: white;
+  margin-bottom: 10vh;
+  text-align: center;
 }
 
 .login-page .container {
-  background-color: #527796 ;
+  background-color: #527796;
   border: 1px solid #041d2d;
   border-radius: 20px;
-  padding: 4vw;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 6rem;
   width: 30vw;
   display: flex;
   flex-direction: column;
-  margin: auto;
 }
 
 .login-page form * {
@@ -47,14 +44,36 @@
 }
 
 .login-page input {
-  width: 90%;
+  width: 80%;
   padding: 12px;
-  margin-bottom: 5vh;
+  margin-bottom: 3rem;
+  border-radius: 26px;
 }
 
 .login-page button {
   width: 45%;
   margin-top: 2vh;
+  border-radius: 26px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.login-page button:hover {
+  background-color: rgb(208, 208, 208);
+}
+
+.login-page .confirm_button {
+  width: 45%;
+  margin-top: 2vh;
+  border-radius: 26px;
+  background-color: #00ffff;
+  color: black;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+.login-page .confirm_button:hover {
+  background-color: #00bdbd;
 }
 
 .login-page .mb-3 {
