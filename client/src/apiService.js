@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "https://morsio.lm.r.appspot.com";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
