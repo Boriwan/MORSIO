@@ -20,40 +20,54 @@ const ChatComponent = ({ sessionId }) => {
           morse: msg.morseCode.join(" "),
           text: msg.translation,
         }));
-        if (newMessages.length > messages.length) {
-          setMessages(newMessages);
-        }
+        setMessages(newMessages);
       } catch (error) {
         console.error("Failed to fetch messages:", error);
       }
     };
 
-    const intervalId = setInterval(fetchMessages, 200);
-
-    return () => clearInterval(intervalId);
-  }, [sessionId, messages.length]);
+    fetchMessages();
+  }, [sessionId]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
-    // Create a WebSocket connection
-    const socket = new WebSocket("ws://localhost:1880/ws/morse");
-    setWs(socket);
+    let socket;
 
-    // Handle incoming messages
-    socket.onmessage = (event) => {
-      setReceivedMorse(event.data);
+    const connectWebSocket = () => {
+      socket = new WebSocket(`ws://localhost:1880/ws/morse?session=${sessionId}`);
+      setWs(socket);
+
+      socket.onopen = () => {
+        console.log("WebSocket connection opened");
+      };
+
+      socket.onmessage = (event) => {
+        setReceivedMorse(event.data);
+        // Optionally, you can handle incoming Morse code messages here
+      };
+
+      socket.onclose = () => {
+        console.log("WebSocket connection closed, reconnecting...");
+        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+      };
+
+      socket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+        socket.close();
+      };
     };
 
-    // Cleanup on component unmount
+    connectWebSocket();
+
     return () => {
       if (socket) {
         socket.close();
       }
     };
-  }, []);
+  }, [sessionId]);
 
   const sendCharacter = (character) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -87,9 +101,8 @@ const ChatComponent = ({ sessionId }) => {
         <input
           type="text"
           className="morse-input"
-          placeholder="Enter Morse code here... (Use 'DOUBLE SPACE' to denote space between words)"
+          placeholder="Enter Morse code here... "
           value={receivedMorse} // Bind the input value to the received Morse code
-          readOnly // Make the input read-only if you don't want user input
         />
       </div>
     </div>

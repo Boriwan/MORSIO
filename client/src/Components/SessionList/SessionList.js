@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SessionList.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import img from "../../images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,10 +17,12 @@ import { logoutUser, listSessions } from "../../apiService";
 
 function SessionList({ onSelectSession }) {
   const [sessions, setSessions] = useState([]);
+  const [activeSessionId, setActiveSessionId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
 
+  const { sessionId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +38,14 @@ function SessionList({ onSelectSession }) {
     fetchSessions();
   }, []);
 
+  useEffect(() => {
+    if (sessionId) {
+      setActiveSessionId(sessionId);
+    }
+  }, [sessionId]);
+
   const handleSessionClick = (sessionId) => {
+    setActiveSessionId(sessionId);
     if (onSelectSession) {
       onSelectSession(sessionId);
     } else {
@@ -87,7 +96,9 @@ function SessionList({ onSelectSession }) {
               <div
                 key={session.id}
                 onClick={() => handleSessionClick(session.id)}
-                className={`session-item ${session.inUse ? "session-in-use" : ""}`}
+                className={`session-item ${
+                  session.id === activeSessionId ? "active-session" : ""
+                }`}
               >
                 <span className="session-item-text">{session.name}</span>
                 <div className="session-btn-group">

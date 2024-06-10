@@ -181,6 +181,8 @@
 .session-list-tile-link {
   text-decoration: none;
 }
-.session-in-use {
-  background-color: #00ffff;
+.active-session {
+  background-color: #00bfff;
 }
+
+
