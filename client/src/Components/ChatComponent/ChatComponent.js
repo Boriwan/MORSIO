@@ -101,8 +101,9 @@ const ChatComponent = ({ sessionId }) => {
         <input
           type="text"
           className="morse-input"
-          placeholder="Enter Morse code here... "
+          placeholder="Enter Morse code here... (Use 'DOUBLE SPACE' to denote space between words)"
           value={receivedMorse} // Bind the input value to the received Morse code
+          
         />
       </div>
     </div>
