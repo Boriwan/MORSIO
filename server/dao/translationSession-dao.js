@@ -1,7 +1,9 @@
 "use strict";
 
 const crypto = require("crypto");
-const TranslationSessionModel = require("../models/TranslationSessionModel"); // Adjust the path as necessary
+
+
+const TranslationSessionModel = require("../models/translationSessionModel"); // Adjust the path as necessary
 
 class TranslationSessionDao {
     constructor() {}

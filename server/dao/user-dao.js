@@ -1,6 +1,6 @@
 "use strict";
 const crypto = require("crypto");
-const UserModel = require("../models/UserModel"); // Adjust the path as necessary
+const UserModel = require("../models/userModel"); // Adjust the path as necessary
 
 class UserDao {
   constructor() {}

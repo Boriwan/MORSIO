@@ -1,0 +1,5 @@
+runtime: nodejs18  # Specify your Node.js version here
+env: standard
+instance_class: F1  # Instance class depends on your needs
+automatic_scaling:
+  min_idle_instances: 1
