@@ -5,8 +5,10 @@ import { getTranslationsBySession } from "../../apiService";
 const ChatComponent = ({ sessionId }) => {
   const [messages, setMessages] = useState([]);
   const [receivedMorse, setReceivedMorse] = useState("");
+  const [receivedTranslation, setReceivedTranslation] = useState("");
   const messagesEndRef = useRef(null);
-  const [ws, setWs] = useState(null);
+  const [morseWs, setMorseWs] = useState(null);
+  const [translationWs, setTranslationWs] = useState(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -34,46 +36,68 @@ const ChatComponent = ({ sessionId }) => {
   }, [messages]);
 
   useEffect(() => {
-    let socket;
+    let morseSocket;
+    let translationSocket;
 
     const connectWebSocket = () => {
-      socket = new WebSocket(`ws://localhost:1880/ws/morse?session=${sessionId}`);
-      setWs(socket);
+      morseSocket = new WebSocket(
+        `ws://localhost:1880/ws/morse?session=${sessionId}`
+      );
+      setMorseWs(morseSocket);
 
-      socket.onopen = () => {
-        console.log("WebSocket connection opened");
+      translationSocket = new WebSocket(
+        `ws://localhost:1880/ws/translation?session=${sessionId}`
+      );
+      setTranslationWs(translationSocket);
+
+      morseSocket.onopen = () => {
+        console.log("Morse WebSocket connection opened");
       };
 
-      socket.onmessage = (event) => {
+      morseSocket.onmessage = (event) => {
         setReceivedMorse(event.data);
-        // Optionally, you can handle incoming Morse code messages here
       };
 
-      socket.onclose = () => {
-        console.log("WebSocket connection closed, reconnecting...");
+      morseSocket.onclose = () => {
+        console.log("Morse WebSocket connection closed, reconnecting...");
         setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
       };
 
-      socket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        socket.close();
+      morseSocket.onerror = (error) => {
+        console.error("Morse WebSocket error:", error);
+        morseSocket.close();
+      };
+
+      translationSocket.onopen = () => {
+        console.log("Translation WebSocket connection opened");
+      };
+
+      translationSocket.onmessage = (event) => {
+        setReceivedTranslation(event.data);
+      };
+
+      translationSocket.onclose = () => {
+        console.log("Translation WebSocket connection closed, reconnecting...");
+        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+      };
+
+      translationSocket.onerror = (error) => {
+        console.error("Translation WebSocket error:", error);
+        translationSocket.close();
       };
     };
 
     connectWebSocket();
 
     return () => {
-      if (socket) {
-        socket.close();
+      if (morseSocket) {
+        morseSocket.close();
+      }
+      if (translationSocket) {
+        translationSocket.close();
       }
     };
   }, [sessionId]);
-
-  const sendCharacter = (character) => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(character); // Send the character directly
-    }
-  };
 
   return (
     <div className="chat-page">
@@ -88,11 +112,11 @@ const ChatComponent = ({ sessionId }) => {
               }`}
             >
               <p>
-                <strong>Morse:</strong> {msg.morse}
+                <strong>Morse code:</strong> {msg.morse}
               </p>
               <div className="line"></div>
               <p>
-                <strong>Text:</strong> {msg.text}
+                <strong>Translation:</strong> {msg.text}
               </p>
             </div>
           ))}
@@ -102,8 +126,13 @@ const ChatComponent = ({ sessionId }) => {
           type="text"
           className="morse-input"
           placeholder="Enter Morse code here... (Use 'DOUBLE SPACE' to denote space between words)"
-          value={receivedMorse} // Bind the input value to the received Morse code
-          
+          value={`${receivedMorse} ${
+            receivedTranslation ? `(${receivedTranslation})` : ""
+          }`}
+          style={{
+            color: receivedTranslation ? "grey" : "black",
+            fontStyle: receivedTranslation ? "italic" : "bold",
+          }}
         />
       </div>
     </div>
