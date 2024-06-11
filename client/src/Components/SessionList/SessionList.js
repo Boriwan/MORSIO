@@ -138,7 +138,6 @@ function SessionList({ onSelectSession }) {
           <Link to="/about">
             <FontAwesomeIcon icon={faInfoCircle} className="icon info-icon" />
           </Link>
-          <FontAwesomeIcon icon={faCog} className="icon settings-icon" />
         </div>
       </div>
 
@@ -152,10 +151,12 @@ function SessionList({ onSelectSession }) {
       )}
 
       {isProfileModalOpen && (
-        <ProfileModal
-          isOpen={isProfileModalOpen}
-          onClose={() => setIsProfileModalOpen(false)}
-        />
+       <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        username="test"
+        email="test"
+      />
       )}
     </>
   );

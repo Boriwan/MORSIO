@@ -12,18 +12,20 @@ const api = axios.create({
 
 let authToken = localStorage.getItem("authToken") || "";
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (email, password, setIsLoggedIn) => {
   try {
     const response = await api.post("/user/login", { email, password });
     authToken = response.data.token;
     localStorage.setItem("authToken", authToken);
+    
+    localStorage.setItem("isLoggedIn", "true");
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 };
 
-export const logoutUser = async (navigate) => {
+export const logoutUser = async (navigate, setIsLoggedIn) => {
   try {
     await api.post(
       "/user/logout",
@@ -31,6 +33,8 @@ export const logoutUser = async (navigate) => {
       { headers: { Authorization: `Bearer ${authToken}` } }
     );
     console.log("SUCCESS LOGOUT");
+    setIsLoggedIn(false);
+    localStorage.setItem("isLoggedIn", "false");
     navigate("/login");
     return true;
   } catch (error) {
@@ -38,6 +42,7 @@ export const logoutUser = async (navigate) => {
     return false;
   }
 };
+
 export const registerUser = async (
   userName,
   email,
@@ -52,6 +57,17 @@ export const registerUser = async (
       password,
       confirmPassword,
       role,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const getUserDetails = async (userId) => {
+  try {
+    const response = await api.get(`/user/get/${userId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
     });
     return response.data;
   } catch (error) {

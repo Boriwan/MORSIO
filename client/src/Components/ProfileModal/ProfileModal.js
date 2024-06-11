@@ -1,6 +1,6 @@
 // ProfileModal.js
 import React from "react";
-import './ProfileModal.css'; // Přidáno vlastní CSS
+import './ProfileModal.css'; 
 
 const ProfileModal = ({ isOpen, onClose, username, email }) => {
   if (!isOpen) return null;
