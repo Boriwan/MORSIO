@@ -185,4 +185,8 @@
   background-color: #00FFFF;
 }
 
+.active-session:hover {
+  background-color: #00cbcb;
+}
+
 
