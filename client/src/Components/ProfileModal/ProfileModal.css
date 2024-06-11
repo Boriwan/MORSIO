@@ -1,56 +1,89 @@
+.modal {
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px; /* Šířka okna */
+  width: 80%; /* Zvětši, pokud chceš širší okno */
+  height: auto; /* Automatická výška podle obsahu */
+  min-height: 200px; /* Minimální výška okna */
+  max-height: 80%; /* Maximální výška, která zajišťuje, že okno nebude příliš dlouhé */
+}
 
-  .modal {
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px; /* Šířka okna */
-    width: 80%; /* Zvětši, pokud chceš širší okno */
-    height: auto; /* Automatická výška podle obsahu */
-    min-height: 200px; /* Minimální výška okna */
-    max-height: 80%; /* Maximální výška, která zajišťuje, že okno nebude příliš dlouhé */
-  }
-  
-  
-  .modal h2 {
-    margin-bottom: 20px;
-  }
-  
-  .user-info p {
-    width: 100%;
-    margin-bottom: 10px; /* Malý margin pro lepší přehlednost */
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .modal-action-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    cursor: pointer;
-    background-color: #8eb9b3;
-    color: white;
-  }
-  
-  .modal-action-button:hover {
-    background-color: #527796;
-  }
-  
-  .modal-action-button:last-child {
-    margin-right: 0; /* Odstranění marginu na posledním tlačítku */
-  }
-  
-  .profile-modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    color: white;
-    font-size: 1.5em;
-    cursor: pointer;
-  }
-  
+.user-info p {
+  width: 100%;
+  margin-bottom: 10px; /* Malý margin pro lepší přehlednost */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal-action-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #8eb9b3;
+  color: white;
+}
+
+.modal-action-button:hover {
+  background-color: #527796;
+}
+
+.modal-action-button:last-child {
+  margin-right: 0; /* Odstranění marginu na posledním tlačítku */
+}
+
+.profile-modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+
+/* The container <div> - needed to position the dropup content */
+.dropup {
+  display: inline-block;
+}
+
+/* Dropup content (Hidden by Default) */
+.dropup-content {
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropup */
+.dropup-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropup links on hover */
+.dropup-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropup menu on hover */
+.dropup:hover .dropup-content {
+  display: block;
+}
+
+/* Change the background color of the dropup button when the dropup content is shown */
+.dropup:hover .dropbtn {
+  background-color: #2980b9;
+}
