@@ -13,7 +13,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import EditSessionModal from "../EditSessionModal/EditSessionModal";
 import ProfileModal from "../ProfileModal/ProfileModal";
-import { logoutUser, listSessions, addNewSession, deleteSession, editSession } from "../../apiService";
+import {
+  logoutUser,
+  listSessions,
+  addNewSession,
+  deleteSession,
+  editSession,
+} from "../../apiService";
 
 function SessionList({ onSelectSession }) {
   const [sessions, setSessions] = useState([]);
@@ -67,7 +73,7 @@ function SessionList({ onSelectSession }) {
     }
   };
 
-  const deleteSession = async (sessionId) => {
+  const handleDeleteSession = async (sessionId) => {
     try {
       await deleteSession(sessionId);
       setSessions(sessions.filter((session) => session.id !== sessionId));
@@ -130,12 +136,12 @@ function SessionList({ onSelectSession }) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      deleteSession(session.id);
+                      handleDeleteSession(session.id);
                     }}
                     className="session-delete-btn"
                   >
-                    <FontAwesomeIcon icon={faTimes}                  />
-                    </button>
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
                 </div>
               </div>
             ))}
@@ -145,7 +151,11 @@ function SessionList({ onSelectSession }) {
           <button onClick={handleLogout} className="icon logout-icon">
             <FontAwesomeIcon icon={faSignOutAlt} />
           </button>
-          <FontAwesomeIcon icon={faCircleUser} className="icon profile-icon" onClick={() => setIsProfileModalOpen(true)}/>
+          <FontAwesomeIcon
+            icon={faCircleUser}
+            className="icon profile-icon"
+            onClick={() => setIsProfileModalOpen(true)}
+          />
           <Link to="/about">
             <FontAwesomeIcon icon={faInfoCircle} className="icon info-icon" />
           </Link>
@@ -162,16 +172,15 @@ function SessionList({ onSelectSession }) {
       )}
 
       {isProfileModalOpen && (
-       <ProfileModal
-        isOpen={isProfileModalOpen}
-        onClose={() => setIsProfileModalOpen(false)}
-        username="test"
-        email="test"
-      />
+        <ProfileModal
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          username="test"
+          email="test"
+        />
       )}
     </>
   );
 }
 
 export default SessionList;
-
