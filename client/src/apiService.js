@@ -16,8 +16,10 @@ export const loginUser = async (email, password, setIsLoggedIn) => {
   try {
     const response = await api.post("/user/login", { email, password });
     authToken = response.data.token;
+    let userId = response.data.userID;
+
     localStorage.setItem("authToken", authToken);
-    
+    localStorage.setItem("userID", userId);
     localStorage.setItem("isLoggedIn", "true");
     return response.data;
   } catch (error) {
@@ -64,9 +66,11 @@ export const registerUser = async (
   }
 };
 
-export const getUserDetails = async (userId) => {
+export const getUserDetails = async () => {
   try {
-    const response = await api.get(`/user/get/${userId}`, {
+    const userID = localStorage.getItem("userID");
+    const authToken = localStorage.getItem("authToken");
+    const response = await api.get(`/user/get/${userID}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     return response.data;
@@ -74,6 +78,7 @@ export const getUserDetails = async (userId) => {
     throw error.response.data;
   }
 };
+
 
 export const listSessions = async () => {
   try {

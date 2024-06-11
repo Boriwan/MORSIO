@@ -5,7 +5,6 @@ import img from "../../images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
-  faCog,
   faInfoCircle,
   faPencilAlt,
   faTimes,
@@ -19,6 +18,7 @@ import {
   addNewSession,
   deleteSession,
   editSession,
+  getUserDetails,
 } from "../../apiService";
 
 function SessionList({ onSelectSession }) {
@@ -27,15 +27,16 @@ function SessionList({ onSelectSession }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
+  const [userDetails, setUserDetails] = useState({ userName: "", email: "" });
 
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
- useEffect(() => {
+  useEffect(() => {
     const fetchSessions = async () => {
       try {
         const data = await listSessions();
-        setSessions(data.reverse());  
+        setSessions(data.reverse());
       } catch (error) {
         console.error("Failed to fetch sessions:", error);
       }
@@ -45,10 +46,28 @@ function SessionList({ onSelectSession }) {
   }, []);
 
   useEffect(() => {
-    if (sessionId) {
-      setActiveSessionId(sessionId);
+    if (isProfileModalOpen) {
+      const fetchUserDetails = async () => {
+        try {
+          const details = await getUserDetails();
+          if (details) {
+            setUserDetails({
+              username: details.userName, // make sure this matches the API response key
+              email: details.email        // make sure this matches the API response key
+            });
+          } else {
+            throw new Error('No user details found.');
+          }
+        } catch (error) {
+          console.error("Failed to fetch user details:", error);
+          setUserDetails({ username: "Unavailable", email: "Unavailable" });
+        }
+      };
+  
+      fetchUserDetails();
     }
-  }, [sessionId]);
+  }, [isProfileModalOpen]);
+  
 
   const handleSessionClick = (sessionId) => {
     setActiveSessionId(sessionId);
@@ -175,8 +194,8 @@ function SessionList({ onSelectSession }) {
         <ProfileModal
           isOpen={isProfileModalOpen}
           onClose={() => setIsProfileModalOpen(false)}
-          username="test"
-          email="test"
+          username={userDetails.username || "Unavailable"}
+          email={userDetails.email || "Unavailable"}
         />
       )}
     </>
