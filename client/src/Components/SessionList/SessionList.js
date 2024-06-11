@@ -52,8 +52,8 @@ function SessionList({ onSelectSession }) {
           const details = await getUserDetails();
           if (details) {
             setUserDetails({
-              username: details.userName, // make sure this matches the API response key
-              email: details.email        // make sure this matches the API response key
+              username: details.userName, 
+              email: details.email        
             });
           } else {
             throw new Error('No user details found.');
