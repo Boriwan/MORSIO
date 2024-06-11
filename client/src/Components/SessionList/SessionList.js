@@ -31,11 +31,11 @@ function SessionList({ onSelectSession }) {
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchSessions = async () => {
       try {
         const data = await listSessions();
-        setSessions(data);
+        setSessions(data.reverse());  
       } catch (error) {
         console.error("Failed to fetch sessions:", error);
       }
