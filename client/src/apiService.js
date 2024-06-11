@@ -141,3 +141,47 @@ export const createTranslation = async (sessionId, morse, translation) => {
     throw error.response.data;
   }
 };
+
+export const addNewSession = async (sessionName) => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.post(
+      "/translationSession/",
+      { name: sessionName },
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const deleteSession = async (sessionId) => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.delete(
+      `/translationSession/${sessionId}`,
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const editSession = async (sessionId, newName) => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.put(
+      `/translationSession/${sessionId}`,
+      { name: newName },
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+
+

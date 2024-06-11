@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./SessionList.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import "./SessionList.css";
 import img from "../../images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import EditSessionModal from "../EditSessionModal/EditSessionModal";
 import ProfileModal from "../ProfileModal/ProfileModal";
-import { logoutUser, listSessions } from "../../apiService";
+import { logoutUser, listSessions, addNewSession, deleteSession, editSession } from "../../apiService";
 
 function SessionList({ onSelectSession }) {
   const [sessions, setSessions] = useState([]);
@@ -21,7 +21,6 @@ function SessionList({ onSelectSession }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
-  const [newSessionName, setNewSessionName] = useState("");
 
   const { sessionId } = useParams();
   const navigate = useNavigate();
@@ -58,16 +57,23 @@ function SessionList({ onSelectSession }) {
     await logoutUser(navigate);
   };
 
-  const addSession = () => {
-    const newSession = {
-      id: Math.random().toString(36).substring(2, 15), // Generating a random ID
-      name: `New Session ${sessions.length + 1}`,
-    };
-    setSessions([newSession, ...sessions]); // Add new session at the top
+  const addSession = async () => {
+    try {
+      const sessionName = `New Session ${sessions.length + 1}`;
+      const newSession = await addNewSession(sessionName);
+      setSessions([newSession, ...sessions]);
+    } catch (error) {
+      console.error("Failed to add session:", error);
+    }
   };
 
-  const deleteSession = (sessionId) => {
-    setSessions(sessions.filter((session) => session.id !== sessionId));
+  const deleteSession = async (sessionId) => {
+    try {
+      await deleteSession(sessionId);
+      setSessions(sessions.filter((session) => session.id !== sessionId));
+    } catch (error) {
+      console.error("Failed to delete session:", error);
+    }
   };
 
   const handleEditClick = (id) => {
@@ -76,12 +82,17 @@ function SessionList({ onSelectSession }) {
     setIsModalOpen(true);
   };
 
-  const handleSave = (id, newName) => {
-    const updatedSessions = sessions.map((session) =>
-      session.id === id ? { ...session, name: newName } : session
-    );
-    setSessions(updatedSessions);
-    setIsModalOpen(false);
+  const handleSave = async (id, newName) => {
+    try {
+      await editSession(id, newName);
+      const updatedSessions = sessions.map((session) =>
+        session.id === id ? { ...session, name: newName } : session
+      );
+      setSessions(updatedSessions);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to edit session:", error);
+    }
   };
 
   return (
@@ -123,8 +134,8 @@ function SessionList({ onSelectSession }) {
                     }}
                     className="session-delete-btn"
                   >
-                    <FontAwesomeIcon icon={faTimes} />
-                  </button>
+                    <FontAwesomeIcon icon={faTimes}                  />
+                    </button>
                 </div>
               </div>
             ))}
@@ -163,3 +174,4 @@ function SessionList({ onSelectSession }) {
 }
 
 export default SessionList;
+
