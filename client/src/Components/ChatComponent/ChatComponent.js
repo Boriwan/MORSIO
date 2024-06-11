@@ -1,6 +1,57 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ChatComponent.css";
-import { getTranslationsBySession } from "../../apiService";
+import { getTranslationsBySession, createTranslation } from "../../apiService";
+
+const morseToText = (morse) => {
+  const morseCode = {
+    ".-": "A",
+    "-...": "B",
+    "-.-.": "C",
+    "-..": "D",
+    ".": "E",
+    "..-.": "F",
+    "--.": "G",
+    "....": "H",
+    "..": "I",
+    ".---": "J",
+    "-.-": "K",
+    ".-..": "L",
+    "--": "M",
+    "-.": "N",
+    "---": "O",
+    ".--.": "P",
+    "--.-": "Q",
+    ".-.": "R",
+    "...": "S",
+    "-": "T",
+    "..-": "U",
+    "...-": "V",
+    ".--": "W",
+    "-..-": "X",
+    "-.--": "Y",
+    "--..": "Z",
+    "-----": "0",
+    ".----": "1",
+    "..---": "2",
+    "...--": "3",
+    "....-": "4",
+    ".....": "5",
+    "-....": "6",
+    "--...": "7",
+    "---..": "8",
+    "----.": "9",
+  };
+
+  return morse
+    .split("  ") // Split at double spaces for words
+    .map((word) =>
+      word
+        .split(" ") // Split at single spaces for characters
+        .map((code) => morseCode[code] || "")
+        .join("")
+    )
+    .join(" "); // Join words with space
+};
 
 const ChatComponent = ({ sessionId }) => {
   const [messages, setMessages] = useState([]);
@@ -99,6 +150,40 @@ const ChatComponent = ({ sessionId }) => {
     };
   }, [sessionId]);
 
+  const handleInputChange = (event) => {
+    const input = event.target.value;
+    setReceivedMorse(input);
+    const translatedText = morseToText(input);
+    setReceivedTranslation(translatedText);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      sendMessage(receivedMorse, receivedTranslation);
+      setReceivedMorse("");
+      setReceivedTranslation("");
+    }
+  };
+
+  const sendMessage = async (morse, translation) => {
+    const newMessage = { morse, text: translation };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    try {
+      await createTranslation(sessionId, morse, translation); // Send data to the backend
+    } catch (error) {
+      console.error("Failed to send translation:", error);
+    }
+
+    if (morseWs && morseWs.readyState === WebSocket.OPEN) {
+      morseWs.send(morse); // Send the Morse code to the server
+    }
+
+    if (translationWs && translationWs.readyState === WebSocket.OPEN) {
+      translationWs.send(translation); // Send the translation to the server
+    }
+  };
+
   return (
     <div className="chat-page">
       <div className="chat-page-container">
@@ -122,18 +207,28 @@ const ChatComponent = ({ sessionId }) => {
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <input
-          type="text"
-          className="morse-input"
-          placeholder="Enter Morse code here... (Use 'DOUBLE SPACE' to denote space between words)"
-          value={`${receivedMorse} ${
-            receivedTranslation ? `(${receivedTranslation})` : ""
-          }`}
-          style={{
-            color: receivedTranslation ? "grey" : "black",
-            fontStyle: receivedTranslation ? "italic" : "bold",
-          }}
-        />
+        <div className="translation-container">
+          <input
+            type="text"
+            className="morse-input"
+            placeholder="Enter Morse code here..."
+            value={receivedMorse}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            style={{
+              fontWeight: "bold",
+              color: "black",
+            }}
+          />
+          <input
+            className="morse-input"
+            readOnly
+            type="text"
+            placeholder="Your current translation"
+            value={receivedTranslation}
+            style={{ color: "grey", fontStyle: "italic" }}
+          />
+        </div>
       </div>
     </div>
   );

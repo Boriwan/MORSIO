@@ -21,6 +21,7 @@ function SessionList({ onSelectSession }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [editingSession, setEditingSession] = useState(null);
+  const [newSessionName, setNewSessionName] = useState("");
 
   const { sessionId } = useParams();
   const navigate = useNavigate();
@@ -58,7 +59,11 @@ function SessionList({ onSelectSession }) {
   };
 
   const addSession = () => {
-    // Implement functionality to add a session or handle this in the backend
+    const newSession = {
+      id: Math.random().toString(36).substring(2, 15), // Generating a random ID
+      name: `New Session ${sessions.length + 1}`,
+    };
+    setSessions([newSession, ...sessions]); // Add new session at the top
   };
 
   const deleteSession = (sessionId) => {

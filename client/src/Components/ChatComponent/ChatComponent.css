@@ -35,6 +35,14 @@
   overflow-y: auto;
 }
 
+.translation-container {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+}
+
 .message {
   background-color: #061f36;
   text-align: center;

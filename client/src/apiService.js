@@ -107,3 +107,21 @@ export const getTranslation = async (translationId) => {
     throw error.response.data;
   }
 };
+
+export const createTranslation = async (sessionId, morse, translation) => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.post(
+      `/translation/`,
+      {
+        sessionId,
+        morseCode: morse.split(" "),
+        translation,
+      },
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
