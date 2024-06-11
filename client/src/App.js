@@ -37,7 +37,7 @@ function App() {
               <Route path="/session/:sessionId" element={<Session />} />
               <Route path="/session" element={<Session />} />
               <Route path="/about" element={<About />} />
-              <Route path="*" element={<Navigate to="/session" />} />
+              <Route path="/" element={<Navigate to="/session" />} />
             </>
           ) : (
             <>
