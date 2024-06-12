@@ -79,8 +79,15 @@ function SessionList({ onSelectSession }) {
   };
 
   const handleLogout = async () => {
-    await logoutUser(navigate);
+    try {
+      await logoutUser(); 
+      localStorage.setItem("isLoggedIn", "false"); 
+      navigate("/login", { replace: true }); 
+    } catch (error) {
+      console.error("Logout failed:", error); 
+    }
   };
+  
 
   const addSession = async () => {
     try {
