@@ -43,10 +43,7 @@ function MorsioSheet({ onMorseInput }) {
       }
     };
   }, []);
-  const handleMorseClick = (code) => {
-    onMorseInput(code);
-    sendCharacter(code);
-  };
+  
   const sendCharacter = (character) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(character); // Send the character directly
@@ -116,10 +113,7 @@ function MorsioSheet({ onMorseInput }) {
                 className="morse-item"
                 data-character={pair.character}
                 data-code={pair.code}
-                onClick={
-                  (() => handleMorseClick(pair.code),
-                  sendCharacter(pair.character))
-                }
+                onClick={() => sendCharacter(pair.character)}
               ></div>
             ))}
           </div>
