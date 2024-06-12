@@ -167,10 +167,10 @@ function About() {
                   ></img>
                 </div>
                 <div className="technology-logo">
-                  <span>Azure</span>
+                  <span>Google Cloude</span>
                   <img
-                    src="https://seeklogo.com/images/M/microsoft-azure-logo-85055C44BE-seeklogo.com.png"
-                    alt="Azure_logo"
+                    src="https://static-00.iconduck.com/assets.00/google-cloud-icon-2048x1646-7admxejz.png"
+                    alt="google_logo"
                   ></img>
                 </div>
                 <div className="technology-logo">

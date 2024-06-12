@@ -4,13 +4,14 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet
 } from "react-router-dom";
 import "./App.css";
 import About from "./Pages/About/About";
 import Session from "./Pages/Session/Session";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute"; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -25,44 +26,17 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route
-            path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
-          />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register />} />
 
-          <Route
-            path="/session/:sessionId"
-            element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Session />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/session"
-            element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Session />
-              </ProtectedRoute>
-            }
-          />
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+            <Route path="/session/:sessionId" element={<Session />} />
+            <Route path="/session" element={<Session />} />
+            <Route path="/about" element={<About />} />
+          </Route>
 
-          <Route
-            path="/about"
-            element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <About />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? <Navigate to="/session" /> : <Navigate to="/login" />
-            }
-          />
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="/" element={<Navigate replace to="/login" />} />
+          <Route path="*" element={<Navigate replace to="/login" />} />
         </Routes>
       </div>
     </Router>

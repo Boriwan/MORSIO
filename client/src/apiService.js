@@ -68,9 +68,8 @@ export const registerUser = async (
 
 export const getUserDetails = async () => {
   try {
-    const userID = localStorage.getItem("userID");
     const authToken = localStorage.getItem("authToken");
-    const response = await api.get(`/user/get/${userID}`, {
+    const response = await api.get(`/user/get`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     return response.data;
