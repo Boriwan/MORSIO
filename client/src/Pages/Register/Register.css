@@ -41,10 +41,6 @@
   flex-direction: column;
 }
 
-.register-page form * {
-  color: white;
-}
-
 .register-page input {
   width: 80%;
   padding: 12px;
