@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ChatComponent.css";
-import { getTranslationsBySession, createTranslation, getSession } from "../../apiService";
+import {
+  getTranslationsBySession,
+  createTranslation,
+  getSession,
+} from "../../apiService";
 
 const morseToText = (morse) => {
   const morseCode = {
@@ -91,7 +95,7 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
       };
 
       morseSocket.onmessage = (event) => {
-        setReceivedMorse(event.data);
+        setMorseCode(event.data);
       };
 
       morseSocket.onclose = () => {
@@ -168,8 +172,8 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      sendMessage(morseCode, receivedTranslation);  // Use morseCode for sending message
-      setMorseCode("");  // Clear the Morse code input
+      sendMessage(morseCode, receivedTranslation); // Use morseCode for sending message
+      setMorseCode(""); // Clear the Morse code input
       setReceivedTranslation("");
     }
   };
