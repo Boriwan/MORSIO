@@ -196,13 +196,9 @@ const ChatComponent = ({ sessionId }) => {
                 index === messages.length - 1 ? "latest-message" : ""
               }`}
             >
-              <p>
-                <strong>Morse code:</strong> {msg.morse}
-              </p>
+              <p>{msg.morse}</p>
               <div className="line"></div>
-              <p>
-                <strong>Translation:</strong> {msg.text}
-              </p>
+              <p>{msg.text}</p>
             </div>
           ))}
           <div ref={messagesEndRef} />
@@ -222,7 +218,6 @@ const ChatComponent = ({ sessionId }) => {
           />
           <input
             className="morse-input"
-            readOnly
             type="text"
             placeholder="Your current translation"
             value={receivedTranslation}
