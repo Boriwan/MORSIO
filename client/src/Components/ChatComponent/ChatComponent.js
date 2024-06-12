@@ -53,7 +53,6 @@ const morseToText = (morse) => {
     .join(" "); // Join words with space
 };
 
-
 const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
   const [messages, setMessages] = useState([]);
   const [receivedMorse, setReceivedMorse] = useState("");
@@ -62,12 +61,11 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
   const messagesEndRef = useRef(null);
   const [morseWs, setMorseWs] = useState(null);
   const [translationWs, setTranslationWs] = useState(null);
-  
+
   useEffect(() => {
     const translatedText = morseToText(morseCode);
-
     setReceivedTranslation(translatedText);
-  },[morseCode])
+  }, [morseCode]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -141,8 +139,8 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
     const fetchMessages = async () => {
       try {
         const data = await getTranslationsBySession(sessionId);
-        const sessionName = await getSession(sessionId)
-        setSessionName(sessionName.name)
+        const sessionName = await getSession(sessionId);
+        setSessionName(sessionName.name);
         const newMessages = data.map((msg) => ({
           morse: msg.morseCode.join(" "),
           text: msg.translation,
@@ -161,8 +159,10 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
   }, [messages]);
 
   const handleInputChange = (event) => {
-    setMorseCode(event.target.value);  // Use setMorseCode to update Morse code
-    const translatedText = morseToText(event.target.value);
+    const input = event.target.value;
+    const validInput = input.replace(/[^.\- ]/g, ""); // Only allow dots, dashes, and spaces
+    setMorseCode(validInput);
+    const translatedText = morseToText(validInput);
     setReceivedTranslation(translatedText);
   };
 
@@ -176,7 +176,7 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
 
   const sendMessage = async (morse, translation) => {
     const newMessage = { morse, text: translation };
-    setMessages(prevMessages => [...prevMessages, newMessage]);
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
 
     try {
       await createTranslation(sessionId, morse, translation);
@@ -217,7 +217,7 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
             type="text"
             className="morse-input"
             placeholder="Enter Morse code here..."
-            value={morseCode}  
+            value={morseCode}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             style={{
