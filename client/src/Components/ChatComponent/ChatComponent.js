@@ -109,15 +109,15 @@ const ChatComponent = ({ sessionId }) => {
         setReceivedMorse(event.data);
       };
 
-      // morseSocket.onclose = () => {
-      //   console.log("Morse WebSocket connection closed, reconnecting...");
-      //   setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      // };
+      morseSocket.onclose = () => {
+        console.log("Morse WebSocket connection closed, reconnecting...");
+        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+      };
 
-      // morseSocket.onerror = (error) => {
-      //   console.error("Morse WebSocket error:", error);
-      //   morseSocket.close();
-      // };
+      morseSocket.onerror = (error) => {
+        console.error("Morse WebSocket error:", error);
+        morseSocket.close();
+      };
 
       translationSocket.onopen = () => {
         console.log("Translation WebSocket connection opened");
@@ -127,15 +127,15 @@ const ChatComponent = ({ sessionId }) => {
         setReceivedTranslation(event.data);
       };
 
-      // translationSocket.onclose = () => {
-      //   console.log("Translation WebSocket connection closed, reconnecting...");
-      //   setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      // };
+      translationSocket.onclose = () => {
+        console.log("Translation WebSocket connection closed, reconnecting...");
+        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+      };
 
-      // translationSocket.onerror = (error) => {
-      //   console.error("Translation WebSocket error:", error);
-      //   translationSocket.close();
-      // };
+      translationSocket.onerror = (error) => {
+        console.error("Translation WebSocket error:", error);
+        translationSocket.close();
+      };
     };
 
     connectWebSocket();
