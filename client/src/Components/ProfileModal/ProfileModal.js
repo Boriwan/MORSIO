@@ -1,55 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./ProfileModal.css";
 
 const ProfileModal = ({ isOpen, onClose, username, email }) => {
-  const [battery, setBattery] = useState(null);
-  const [batteryStatus, setBatteryStatus] = useState(null);
-
-  useEffect(() => {
-    const batterySocket = new WebSocket("ws://localhost:1880/ws/battery");
-    const batteryStatusSocket = new WebSocket(
-      "ws://localhost:1880/ws/batteryStatus"
-    );
-
-    batterySocket.onopen = () => {
-      console.log("Battery WebSocket connection opened");
-    };
-
-    batterySocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setBattery(data.battery);
-    };
-
-    batterySocket.onclose = () => {
-      console.log("Battery WebSocket connection closed");
-    };
-
-    batterySocket.onerror = (error) => {
-      console.error("Battery WebSocket error:", error);
-    };
-
-    batteryStatusSocket.onopen = () => {
-      console.log("Battery Status WebSocket connection opened");
-    };
-
-    batteryStatusSocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setBatteryStatus(data.batteryStatus);
-    };
-
-    batteryStatusSocket.onclose = () => {
-      console.log("Battery Status WebSocket connection closed");
-    };
-
-    batteryStatusSocket.onerror = (error) => {
-      console.error("Battery Status WebSocket error:", error);
-    };
-
-    return () => {
-      batterySocket.close();
-      batteryStatusSocket.close();
-    };
-  }, []);
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
@@ -61,12 +14,6 @@ const ProfileModal = ({ isOpen, onClose, username, email }) => {
           </p>
           <p>
             <strong>Email:</strong> {email || "Unavailable"}
-          </p>
-          <p>
-            <strong>Battery at </strong> {battery || "Unavailable"} %
-          </p>
-          <p>
-            <strong>Status: </strong> {batteryStatus || "Unavailable"}
           </p>
         </div>
         <div className="modal-actions">
