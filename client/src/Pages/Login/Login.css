@@ -39,9 +39,6 @@
   flex-direction: column;
 }
 
-.login-page form * {
-  color: white;
-}
 
 .login-page input {
   width: 80%;

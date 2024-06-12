@@ -6,7 +6,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function MorsioSheet() {
+function MorsioSheet({ onMorseInput }) {
   const [isOpen, setIsOpen] = useState(true);
   const [ws, setWs] = useState(null);
 
@@ -17,7 +17,24 @@ function MorsioSheet() {
   useEffect(() => {
     // Create a WebSocket connection
     const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
-    setWs(socket);
+
+    socket.onopen = () => {
+      console.log("WebSocket connection established");
+      setWs(socket);
+    };
+
+    socket.onmessage = (event) => {
+      console.log("Message from server:", event.data);
+    };
+
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    socket.onclose = (event) => {
+      console.log("WebSocket connection closed:", event);
+      setWs(null);
+    };
 
     // Cleanup on component unmount
     return () => {
@@ -26,10 +43,15 @@ function MorsioSheet() {
       }
     };
   }, []);
-
+  const handleMorseClick = (code) => {
+    onMorseInput(code);
+    sendCharacter(code);
+  };
   const sendCharacter = (character) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(character); // Send the character directly
+    } else {
+      console.error("WebSocket is not open");
     }
   };
 
@@ -78,13 +100,12 @@ function MorsioSheet() {
       <div className="buttonClose">
         <button onClick={toggleSidebar} className="toggle-button">
           {isOpen ? (
-            <FontAwesomeIcon icon={faChevronRight} color="white" />
+            <FontAwesomeIcon icon={faChevronRight} />
           ) : (
-            <FontAwesomeIcon icon={faChevronLeft} color="white" />
+            <FontAwesomeIcon icon={faChevronLeft} />
           )}
         </button>
       </div>
-
       {isOpen && (
         <>
           <h2>Cheat sheet</h2>
@@ -95,7 +116,10 @@ function MorsioSheet() {
                 className="morse-item"
                 data-character={pair.character}
                 data-code={pair.code}
-                onClick={() => sendCharacter(pair.character)}
+                onClick={
+                  (() => handleMorseClick(pair.code),
+                  sendCharacter(pair.character))
+                }
               ></div>
             ))}
           </div>
@@ -104,5 +128,4 @@ function MorsioSheet() {
     </div>
   );
 }
-
 export default MorsioSheet;

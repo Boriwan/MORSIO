@@ -35,12 +35,17 @@
   overflow-y: auto;
 }
 
+.morse-code {
+  font-family: "Consolas, 'Courier New', monospace";
+  font-weight: bold;
+  font-size: 30px; 
+}
+
 .translation-container {
   width: 80%;
   display: flex;
   flex-direction: row;
   gap: 1rem;
-
 }
 
 .message {
