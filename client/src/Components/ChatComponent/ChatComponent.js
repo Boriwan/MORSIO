@@ -77,7 +77,7 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
 
   useEffect(() => {
     let intervalId;
-  
+
     const fetchMessages = async () => {
       try {
         const data = await getTranslationsBySession(sessionId);
@@ -95,15 +95,15 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
         console.error("Failed to fetch messages:", error);
       }
     };
-  
+
     // Initial fetch
     fetchMessages();
-  
+
     // Set up the interval
     intervalId = setInterval(() => {
       fetchMessages();
     }, 200); // refresh every 200 milliseconds
-  
+
     // Cleanup function to clear the interval
     return () => {
       if (intervalId) {
@@ -111,7 +111,6 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
       }
     };
   }, [sessionId, messages]); // Dependency array includes sessionId to re-initiate on change
-  
 
   useEffect(() => {
     let morseSocket;
@@ -119,12 +118,12 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
 
     const connectWebSocket = () => {
       morseSocket = new WebSocket(
-        `ws://localhost:1880/ws/morse?session=${sessionId}`
+        `wss://client-seven-mu-60.vercel.app/ws/morse?session=${sessionId}`
       );
       setMorseWs(morseSocket);
 
       translationSocket = new WebSocket(
-        `ws://localhost:1880/ws/translation?session=${sessionId}`
+        `wss://client-seven-mu-60.vercel.app/ws/translation?session=${sessionId}`
       );
       setTranslationWs(translationSocket);
 
@@ -176,8 +175,6 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
       }
     };
   }, [sessionId]);
-
-
 
   useEffect(() => {
     scrollToBottom();

@@ -6,7 +6,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function MorsioSheet({ onMorseInput }) {
+function MorsioSheet() {
   const [isOpen, setIsOpen] = useState(true);
   const [ws, setWs] = useState(null);
 
@@ -16,25 +16,10 @@ function MorsioSheet({ onMorseInput }) {
 
   useEffect(() => {
     // Create a WebSocket connection
-    const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
-
-    socket.onopen = () => {
-      console.log("WebSocket connection established");
-      setWs(socket);
-    };
-
-    socket.onmessage = (event) => {
-      console.log("Message from server:", event.data);
-    };
-
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    socket.onclose = (event) => {
-      console.log("WebSocket connection closed:", event);
-      setWs(null);
-    };
+    const socket = new WebSocket(
+      "wss://client-seven-mu-60.vercel.app/ws/cheatsheet"
+    );
+    setWs(socket);
 
     // Cleanup on component unmount
     return () => {
@@ -43,12 +28,10 @@ function MorsioSheet({ onMorseInput }) {
       }
     };
   }, []);
-  
+
   const sendCharacter = (character) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(character); // Send the character directly
-    } else {
-      console.error("WebSocket is not open");
     }
   };
 
@@ -97,12 +80,13 @@ function MorsioSheet({ onMorseInput }) {
       <div className="buttonClose">
         <button onClick={toggleSidebar} className="toggle-button">
           {isOpen ? (
-            <FontAwesomeIcon icon={faChevronRight} />
+            <FontAwesomeIcon icon={faChevronRight} color="white" />
           ) : (
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FontAwesomeIcon icon={faChevronLeft} color="white" />
           )}
         </button>
       </div>
+
       {isOpen && (
         <>
           <h2>Cheat sheet</h2>
@@ -122,4 +106,5 @@ function MorsioSheet({ onMorseInput }) {
     </div>
   );
 }
+
 export default MorsioSheet;
