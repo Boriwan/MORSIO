@@ -9,7 +9,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function Session() {
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true); // State for loading
+  const [sessionName, setSessionName] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [morseCode, setMorseCode] = useState("");
   const navigate = useNavigate();
   const { sessionId } = useParams();
 
@@ -29,27 +31,29 @@ function Session() {
           console.error("Failed to fetch session data:", error);
         }
       }
-      setTimeout(() => {
-        setLoading(false); // Hide loading spinner after 1 second
-      }, 1500);
+      setTimeout(() => setLoading(false), 1500);
     };
 
     fetchMessages();
   }, [sessionId]);
 
+  const handleMorseInput = (code) => {
+    setMorseCode(prev => `${prev} ${code}`.trim());
+  };
+
   return (
     <>
-      {loading && <LoadingAnimation />} {/* Display the loading spinner */}
+      {loading && <LoadingAnimation />}
       <div className="session-list">
         <SessionList onSelectSession={(id) => navigate(`/session/${id}`)} />
       </div>
       <div className="session-page">
         <div className="session-page-container">
-          <ChatComponent messages={messages} sessionId={sessionId} />
+          <ChatComponent messages={messages} sessionId={sessionId} morseCode={morseCode} setMorseCode={setMorseCode} />
         </div>
       </div>
       <div className="morsio-cheatsheet">
-        <MorsioSheet />
+        <MorsioSheet onMorseInput={handleMorseInput} />
       </div>
     </>
   );

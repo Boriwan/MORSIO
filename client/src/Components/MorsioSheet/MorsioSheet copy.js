@@ -78,25 +78,31 @@ function MorsioSheet({onMorseInput}) {
     <div className={`morsio-sheet ${isOpen ? "open" : "closed"}`}>
       <div className="buttonClose">
         <button onClick={toggleSidebar} className="toggle-button">
-          {isOpen ? <FontAwesomeIcon icon={faChevronRight} /> : <FontAwesomeIcon icon={faChevronLeft} />}
+          {isOpen ? (
+            <FontAwesomeIcon icon={faChevronRight} color="white" />
+          ) : (
+            <FontAwesomeIcon icon={faChevronLeft} color="white" />
+          )}
         </button>
       </div>
+
       {isOpen && (
-       <>
-       <h2>Cheat sheet</h2>
-       <div className="morse-list">
-         {charactersMorsePairs.map((pair, index) => (
-           <div
-             key={index}
-             className="morse-item"
-             data-character={pair.character}
-             data-code={pair.code}
-             onClick={() => onMorseInput(pair.code)}              ></div>
-         ))}
-       </div>
-     </>
+        <>
+          <h2>Cheat sheet</h2>
+          <div className="morse-list">
+            {charactersMorsePairs.map((pair, index) => (
+              <div
+                key={index}
+                className="morse-item"
+                data-character={pair.character}
+                data-code={pair.code}
+                onClick={() => onMorseInput(pair.code)}              ></div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
 }
+
 export default MorsioSheet;
