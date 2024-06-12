@@ -11,7 +11,7 @@ import About from "./Pages/About/About";
 import Session from "./Pages/Session/Session";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import ProtectedRoute from "./ProtectedRoute"; // Make sure this is correctly imported
+import ProtectedRoute from "./ProtectedRoute"; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
