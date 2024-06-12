@@ -6,7 +6,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function MorsioSheet({ onMorseInput }) {
+function MorsioSheet({onMorseInput}) {
   const [isOpen, setIsOpen] = useState(true);
   const [ws, setWs] = useState(null);
 
@@ -14,43 +14,49 @@ function MorsioSheet({ onMorseInput }) {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    // Create a WebSocket connection
-    const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
 
-    socket.onopen = () => {
-      console.log("WebSocket connection established");
-      setWs(socket);
+    useEffect(() => {
+      // Create a WebSocket connection
+      const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
+  
+      socket.onopen = () => {
+        console.log("WebSocket connection established");
+        setWs(socket);
+      };
+  
+      socket.onmessage = (event) => {
+        console.log("Message from server:", event.data);
+      };
+  
+      socket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+  
+      socket.onclose = (event) => {
+        console.log("WebSocket connection closed:", event);
+        setWs(null);
+      };
+  
+      // Cleanup on component unmount
+      return () => {
+        if (socket) {
+          socket.close();
+        }
+      };
+    }, []);
+    const handleMorseClick = (code) => {
+      onMorseInput(code);
+      sendCharacter(code);
     };
-
-    socket.onmessage = (event) => {
-      console.log("Message from server:", event.data);
-    };
-
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    socket.onclose = (event) => {
-      console.log("WebSocket connection closed:", event);
-      setWs(null);
-    };
-
-    // Cleanup on component unmount
-    return () => {
-      if (socket) {
-        socket.close();
+    const sendCharacter = (character) => {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(character); // Send the character directly
+      } else {
+        console.error("WebSocket is not open");
       }
     };
-  }, []);
-  
-  const sendCharacter = (character) => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(character); // Send the character directly
-    } else {
-      console.error("WebSocket is not open");
-    }
-  };
+
+
 
   // Define the alphabet and numbers with their corresponding Morse code
   const charactersMorsePairs = [
@@ -96,28 +102,23 @@ function MorsioSheet({ onMorseInput }) {
     <div className={`morsio-sheet ${isOpen ? "open" : "closed"}`}>
       <div className="buttonClose">
         <button onClick={toggleSidebar} className="toggle-button">
-          {isOpen ? (
-            <FontAwesomeIcon icon={faChevronRight} />
-          ) : (
-            <FontAwesomeIcon icon={faChevronLeft} />
-          )}
+          {isOpen ? <FontAwesomeIcon icon={faChevronRight} /> : <FontAwesomeIcon icon={faChevronLeft} />}
         </button>
       </div>
       {isOpen && (
-        <>
-          <h2>Cheat sheet</h2>
-          <div className="morse-list">
-            {charactersMorsePairs.map((pair, index) => (
-              <div
-                key={index}
-                className="morse-item"
-                data-character={pair.character}
-                data-code={pair.code}
-                onClick={() => sendCharacter(pair.character)}
-              ></div>
-            ))}
-          </div>
-        </>
+       <>
+       <h2>Cheat sheet</h2>
+       <div className="morse-list">
+         {charactersMorsePairs.map((pair, index) => (
+           <div
+             key={index}
+             className="morse-item"
+             data-character={pair.character}
+             data-code={pair.code}
+             onClick={() => handleMorseClick(pair.code)}              ></div>
+         ))}
+       </div>
+     </>
       )}
     </div>
   );
