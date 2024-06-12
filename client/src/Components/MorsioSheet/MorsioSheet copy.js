@@ -14,49 +14,25 @@ function MorsioSheet({onMorseInput}) {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    // Create a WebSocket connection
+    const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
+    setWs(socket);
 
-    useEffect(() => {
-      // Create a WebSocket connection
-      const socket = new WebSocket("ws://localhost:1880/ws/cheatsheet");
-  
-      socket.onopen = () => {
-        console.log("WebSocket connection established");
-        setWs(socket);
-      };
-  
-      socket.onmessage = (event) => {
-        console.log("Message from server:", event.data);
-      };
-  
-      socket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
-  
-      socket.onclose = (event) => {
-        console.log("WebSocket connection closed:", event);
-        setWs(null);
-      };
-  
-      // Cleanup on component unmount
-      return () => {
-        if (socket) {
-          socket.close();
-        }
-      };
-    }, []);
-    const handleMorseClick = (code) => {
-      onMorseInput(code);
-      sendCharacter(code);
-    };
-    const sendCharacter = (character) => {
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send(character); // Send the character directly
-      } else {
-        console.error("WebSocket is not open");
+    // Cleanup on component unmount
+    return () => {
+      if (socket) {
+        socket.close();
       }
     };
+  }, []);
 
-
+  const sendCharacter = (character) => {
+    console.log(character);
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(character); // Send the character directly
+    }
+  };
 
   // Define the alphabet and numbers with their corresponding Morse code
   const charactersMorsePairs = [
@@ -115,7 +91,7 @@ function MorsioSheet({onMorseInput}) {
              className="morse-item"
              data-character={pair.character}
              data-code={pair.code}
-             onClick={() => handleMorseClick(pair.code)}              ></div>
+             onClick={() => onMorseInput(pair.code)}              ></div>
          ))}
        </div>
      </>
