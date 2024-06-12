@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./MorsioSheet.css";
+import { postCharacter } from "../../apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -8,30 +9,16 @@ import {
 
 function MorsioSheet() {
   const [isOpen, setIsOpen] = useState(true);
-  const [ws, setWs] = useState(null);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    // Create a WebSocket connection
-    const socket = new WebSocket("wss://morsio.lm.r.appspot.com/ws/cheatsheet");
-    setWs(socket);
-
-    // Cleanup on component unmount
-    return () => {
-      if (socket) {
-        socket.close();
-      }
-    };
-  }, []);
-
-  const sendCharacter = (character) => {
-    console.log(character);
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(character); // Send the character directly
-      console.log(character);
+  const sendCharacter = async (character) => {
+    try {
+      await postCharacter(character);
+    } catch (error) {
+      console.error("Failed to send character:", error);
     }
   };
 

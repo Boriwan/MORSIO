@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const WebSocket = require("ws");
-const axios = require("axios"); // For making HTTP requests to Node-RED
+const axios = require("axios");
 
 const app = express();
 const cors = require("cors");
@@ -39,40 +39,91 @@ const wssCheatsheet = new WebSocket.Server({ noServer: true });
 const wssMorse = new WebSocket.Server({ noServer: true });
 const wssTranslation = new WebSocket.Server({ noServer: true });
 
-// Define the WebSocket connection to Node-RED
-const nodeRedUrl = "http://localhost:1880"; // Update this with your Node-RED URL
+// cheatsheet
+app.post("/cheatsheet/post", (req, res) => {
+  const character = req.body.character;
 
-// Function to forward messages to Node-RED
-const forwardMessageToNodeRed = async (path, message) => {
-  try {
-    await axios.post(`${nodeRedUrl}${path}`, message);
-  } catch (error) {
-    console.error("Error forwarding message to Node-RED:", error);
+  if (character) {
+    broadcastCharacter(character);
+    res.status(200).send("character sent");
+  } else {
+    res.status(400).send("character is required");
   }
-};
-
-// wssCheatsheet WebSocket Server
-wssCheatsheet.on("connection", (socket) => {
-  socket.on("message", (message) => {
-    console.log("Received message on /ws/cheatsheet:", message);
-    forwardMessageToNodeRed("/cheatsheet", message); // Forward message to Node-RED
-  });
 });
 
-// wssMorse WebSocket Server
-wssMorse.on("connection", (socket) => {
-  socket.on("message", (message) => {
-    console.log("Received message on /ws/morse:", message);
-    forwardMessageToNodeRed("/morse", message); // Forward message to Node-RED
+function broadcastCharacter(message) {
+  wssCheatsheet.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(message);
+    }
   });
+}
+
+// cheatsheet connection
+wssCheatsheet.on("connection", (ws) => {
+  ws.send("Welcome to /cheatsheet");
 });
 
-// wssTranslation WebSocket Server
-wssTranslation.on("connection", (socket) => {
-  socket.on("message", (message) => {
-    console.log("Received message on /ws/translation:", message);
-    forwardMessageToNodeRed("/translation", message); // Forward message to Node-RED
+// morse
+app.get("/currentMorse", (req, res) => {
+  const morse = req.body.morse;
+
+  if (morse) {
+    broadcastMorse({ type: "morse", message: morse });
+    res.status(200).send("morse code sent");
+  } else {
+    res.status(400).send("morse code is required");
+  }
+});
+
+function broadcastMorse(message) {
+  wssMorse.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(message.toString());
+    }
   });
+}
+
+wssMorse.on("connection", (ws) => {
+  ws.on("message", (data, isBinary) => {
+    const message = isBinary ? data.toString() : data;
+    console.log("Received message:", message);
+    broadcastMorse(message);
+  });
+
+  ws.send("Welcome to /morse");
+});
+
+// translation
+app.get("/currentTranslation", (req, res) => {
+  const translation = req.body.translation;
+
+  if (translation) {
+    broadcastTranslation({ type: "translation", message: translation });
+    res.status(200).send("translation sent");
+  } else {
+    res.status(400).send("translation is required");
+  }
+  console.log(translation);
+});
+
+function broadcastTranslation(message) {
+  wssTranslation.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(message.toString());
+    }
+  });
+}
+
+// chat connection
+wssTranslation.on("connection", (ws) => {
+  ws.on("message", (data, isBinary) => {
+    const message = isBinary ? data.toString() : data;
+    console.log("Received message:", message);
+    broadcastTranslation(message);
+  });
+
+  ws.send("Welcome to /translation");
 });
 
 server.on("upgrade", (request, socket, head) => {

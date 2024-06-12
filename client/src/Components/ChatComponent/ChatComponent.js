@@ -4,6 +4,8 @@ import {
   getTranslationsBySession,
   createTranslation,
   getSession,
+  getMorse,
+  getCurrentTranslation,
 } from "../../apiService";
 
 const morseToText = (morse) => {
@@ -47,24 +49,22 @@ const morseToText = (morse) => {
   };
 
   return morse
-    .split("  ") // Split at double spaces for words
+    .split("  ")
     .map((word) =>
       word
-        .split(" ") // Split at single spaces for characters
+        .split(" ")
         .map((code) => morseCode[code] || "")
         .join("")
     )
-    .join(" "); // Join words with space
+    .join(" ");
 };
 
-const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
+const ChatComponent = ({ sessionId, morseCode, setMorseCode }) => {
   const [messages, setMessages] = useState([]);
-  const [receivedMorse, setReceivedMorse] = useState("");
   const [sessionName, setSessionName] = useState("");
   const [receivedTranslation, setReceivedTranslation] = useState("");
+    const [receivedMorse, setReceivedMorse] = useState("");
   const messagesEndRef = useRef(null);
-  const [morseWs, setMorseWs] = useState(null);
-  const [translationWs, setTranslationWs] = useState(null);
 
   useEffect(() => {
     const translatedText = morseToText(morseCode);
@@ -96,8 +96,19 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
       }
     };
 
+    const fetchData = async () => {
+      try {
+        const morseData = await getMorse();
+        const transData = await getCurrentTranslation();
+        setReceivedTranslation(transData);
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      }
+    };
+
     // Initial fetch
     fetchMessages();
+    fetchData();
 
     // Set up the interval
     intervalId = setInterval(() => {
@@ -111,70 +122,6 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
       }
     };
   }, [sessionId, messages]); // Dependency array includes sessionId to re-initiate on change
-
-  useEffect(() => {
-    let morseSocket;
-    let translationSocket;
-
-    const connectWebSocket = () => {
-      morseSocket = new WebSocket(
-        `wss://morsio.lm.r.appspot.com/ws/morse?session=${sessionId}`
-      );
-      setMorseWs(morseSocket);
-
-      translationSocket = new WebSocket(
-        `wss://morsio.lm.r.appspot.com/ws/translation?session=${sessionId}`
-      );
-      setTranslationWs(translationSocket);
-
-      morseSocket.onopen = () => {
-        console.log("Morse WebSocket connection opened");
-      };
-
-      morseSocket.onmessage = (event) => {
-        setMorseCode(event.data);
-      };
-
-      morseSocket.onclose = () => {
-        console.log("Morse WebSocket connection closed, reconnecting...");
-        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      };
-
-      morseSocket.onerror = (error) => {
-        console.error("Morse WebSocket error:", error);
-        morseSocket.close();
-      };
-
-      translationSocket.onopen = () => {
-        console.log("Translation WebSocket connection opened");
-      };
-
-      translationSocket.onmessage = (event) => {
-        setReceivedTranslation(event.data);
-      };
-
-      translationSocket.onclose = () => {
-        console.log("Translation WebSocket connection closed, reconnecting...");
-        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      };
-
-      translationSocket.onerror = (error) => {
-        console.error("Translation WebSocket error:", error);
-        translationSocket.close();
-      };
-    };
-
-    connectWebSocket();
-
-    return () => {
-      if (morseSocket) {
-        morseSocket.close();
-      }
-      if (translationSocket) {
-        translationSocket.close();
-      }
-    };
-  }, [sessionId]);
 
   useEffect(() => {
     scrollToBottom();
@@ -204,14 +151,6 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
       await createTranslation(sessionId, morse, translation);
     } catch (error) {
       console.error("Failed to send translation:", error);
-    }
-
-    if (morseWs && morseWs.readyState === WebSocket.OPEN) {
-      morseWs.send(morse);
-    }
-
-    if (translationWs && translationWs.readyState === WebSocket.OPEN) {
-      translationWs.send(translation);
     }
   };
 

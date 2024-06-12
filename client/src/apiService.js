@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-const API_BASE_URL = "https://morsio.lm.r.appspot.com";
+// const API_BASE_URL = "https://morsio.lm.r.appspot.com";
+const API_BASE_URL = "http://localhost:8000";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -77,7 +78,6 @@ export const getUserDetails = async () => {
     throw error.response.data;
   }
 };
-
 
 export const listSessions = async () => {
   try {
@@ -163,10 +163,9 @@ export const addNewSession = async (sessionName) => {
 export const deleteSession = async (sessionId) => {
   try {
     const authToken = localStorage.getItem("authToken") || "";
-    const response = await api.delete(
-      `/translationSession/${sessionId}`,
-      { headers: { Authorization: `Bearer ${authToken}` } }
-    );
+    const response = await api.delete(`/translationSession/${sessionId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -187,5 +186,40 @@ export const editSession = async (sessionId, newName) => {
   }
 };
 
+export const postCharacter = async (character) => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.post(
+      "/cheatsheet/post",
+      { character: character },
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 
+export const getMorse = async (morse) => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.get("currentMorse", {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 
+export const getCurrentTranslation = async () => {
+  try {
+    const authToken = localStorage.getItem("authToken") || "";
+    const response = await api.get("/currentTranslation", {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
