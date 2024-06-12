@@ -7,10 +7,10 @@ const ListAll = require("../abl/user-abl/list-all-abl");
 const DeleteAbl = require("../abl/user-abl/delete-abl");
 const UpdateAbl = require("../abl/user-abl/update-abl");
 const { blacklistToken } = require("../middleware/authManager");
-const verifyToken = require('../middleware/verifyToken'); // Ensure this path is correct
+const verifyToken = require("../middleware/verifyToken"); // Ensure this path is correct
 
 // RESTful route for getting a user by ID
-router.get("/get/:id", verifyToken, GetAbl);
+router.get("/get", verifyToken, GetAbl);
 
 // Returns a list of all users
 router.get("/", verifyToken, ListAll);

@@ -3,10 +3,8 @@ const path = require("path");
 
 let dao = new UserDao();
 
-
-
 async function GetAbl(req, res) {
-  const user = await dao.get(req.params.id);
+  const user = await dao.get(req.user.id);
   if (user) {
     res.json(user);
   } else {
