@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./MorsioSheet.css";
-import io from "socket.io-client";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -18,12 +16,9 @@ function MorsioSheet() {
 
   useEffect(() => {
     // Create a WebSocket connection
-    const socket = io("wss://client-seven-mu-60.vercel.app/ws/cheatsheet");
-
+    const socket = new WebSocket("wss://morsio.lm.r.appspot.com/ws/cheatsheet");
     setWs(socket);
-    socket.on("receive", (character) => {
-      // Handle receiving characters
-    });
+
     // Cleanup on component unmount
     return () => {
       if (socket) {
@@ -33,8 +28,8 @@ function MorsioSheet() {
   }, []);
 
   const sendCharacter = (character) => {
-    if (ws && ws.connected) {
-      ws.emit("send", character); // Use emit for sending messages in socket.io
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(character); // Send the character directly
     }
   };
 
