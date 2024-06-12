@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const WebSocket = require("ws");
+const axios = require("axios"); // For making HTTP requests to Node-RED
 
 const app = express();
 const cors = require("cors");
@@ -38,27 +39,39 @@ const wssCheatsheet = new WebSocket.Server({ noServer: true });
 const wssMorse = new WebSocket.Server({ noServer: true });
 const wssTranslation = new WebSocket.Server({ noServer: true });
 
+// Define the WebSocket connection to Node-RED
+const nodeRedUrl = "http://localhost:1880"; // Update this with your Node-RED URL
+
+// Function to forward messages to Node-RED
+const forwardMessageToNodeRed = async (path, message) => {
+  try {
+    await axios.post(`${nodeRedUrl}${path}`, message);
+  } catch (error) {
+    console.error("Error forwarding message to Node-RED:", error);
+  }
+};
+
+// wssCheatsheet WebSocket Server
 wssCheatsheet.on("connection", (socket) => {
   socket.on("message", (message) => {
     console.log("Received message on /ws/cheatsheet:", message);
-    // Forward to local Node-RED
-    // TODO: Implement the forward logic
+    forwardMessageToNodeRed("/cheatsheet", message); // Forward message to Node-RED
   });
 });
 
+// wssMorse WebSocket Server
 wssMorse.on("connection", (socket) => {
   socket.on("message", (message) => {
     console.log("Received message on /ws/morse:", message);
-    // Forward to local Node-RED
-    // TODO: Implement the forward logic
+    forwardMessageToNodeRed("/morse", message); // Forward message to Node-RED
   });
 });
 
+// wssTranslation WebSocket Server
 wssTranslation.on("connection", (socket) => {
   socket.on("message", (message) => {
     console.log("Received message on /ws/translation:", message);
-    // Forward to local Node-RED
-    // TODO: Implement the forward logic
+    forwardMessageToNodeRed("/translation", message); // Forward message to Node-RED
   });
 });
 

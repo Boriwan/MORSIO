@@ -28,8 +28,10 @@ function MorsioSheet() {
   }, []);
 
   const sendCharacter = (character) => {
+    console.log(character);
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(character); // Send the character directly
+      console.log(character);
     }
   };
 
