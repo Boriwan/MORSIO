@@ -199,8 +199,13 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
         <h1>{sessionName}</h1>
         <div className="message-container">
           {messages.map((msg, index) => (
-            <div key={index} className={`message ${index === messages.length - 1 ? "latest-message" : ""}`}>
-              <p>{msg.morse}</p>
+            <div
+              key={index}
+              className={`message ${
+                index === messages.length - 1 ? "latest-message" : ""
+              }`}
+            >
+              <p className="morse-code">{msg.morse}</p>
               <div className="line"></div>
               <p>{msg.text}</p>
             </div>
@@ -216,6 +221,7 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             style={{
+              fontFamily: "Consolas, 'Courier New', monospace",
               fontWeight: "bold",
               color: "black",
             }}
