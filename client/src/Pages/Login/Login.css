@@ -86,3 +86,23 @@
 .login-page .text-danger {
   color: red;
 }
+
+@media only screen and (max-width: 780px) {
+  .login-page .container {
+    width: 90vw !important;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-group button {
+    margin: 0px !important;
+    margin-top: 20px !important;
+    width: 70% !important;
+  }
+}
+

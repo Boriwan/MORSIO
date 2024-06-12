@@ -25,6 +25,11 @@
   width: 40px;
 }
 
+.morsio-sheet.closed .buttonClose {
+  left: 25%;
+}
+
+
 .buttonClose {
   position: absolute;
   top: 50%;
