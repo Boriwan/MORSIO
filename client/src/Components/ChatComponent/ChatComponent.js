@@ -196,7 +196,7 @@ const ChatComponent = ({ sessionId }) => {
                 index === messages.length - 1 ? "latest-message" : ""
               }`}
             >
-              <p>{msg.morse}</p>
+              <p className="morse-code">{msg.morse}</p>
               <div className="line"></div>
               <p>{msg.text}</p>
             </div>
@@ -212,6 +212,7 @@ const ChatComponent = ({ sessionId }) => {
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             style={{
+              fontFamily: "Consolas, 'Courier New', monospace",
               fontWeight: "bold",
               color: "black",
             }}
