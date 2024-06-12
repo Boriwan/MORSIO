@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ChatComponent.css";
+import io from "socket.io-client";
 import {
   getTranslationsBySession,
   createTranslation,
@@ -113,68 +114,27 @@ const ChatComponent = ({ sessionId, mess, morseCode, setMorseCode }) => {
   }, [sessionId, messages]); // Dependency array includes sessionId to re-initiate on change
 
   useEffect(() => {
-    let morseSocket;
-    let translationSocket;
+    const morseSocket = io(`wss://client-seven-mu-60.vercel.app/ws/morse?session=${sessionId}`);
+    const translationSocket = io(`wss://client-seven-mu-60.vercel.app/ws/translation?session=${sessionId}`);
 
-    const connectWebSocket = () => {
-      morseSocket = new WebSocket(
-        `wss://client-seven-mu-60.vercel.app/ws/morse?session=${sessionId}`
-      );
-      setMorseWs(morseSocket);
+    setMorseWs(morseSocket);
+    setTranslationWs(translationSocket);
 
-      translationSocket = new WebSocket(
-        `wss://client-seven-mu-60.vercel.app/ws/translation?session=${sessionId}`
-      );
-      setTranslationWs(translationSocket);
+    morseSocket.on("receive", (morseCode) => {
+      const translatedText = morseToText(morseCode);
+      setMessages(prevMessages => [...prevMessages, { morse: morseCode, text: translatedText }]);
+    });
 
-      morseSocket.onopen = () => {
-        console.log("Morse WebSocket connection opened");
-      };
-
-      morseSocket.onmessage = (event) => {
-        setMorseCode(event.data);
-      };
-
-      morseSocket.onclose = () => {
-        console.log("Morse WebSocket connection closed, reconnecting...");
-        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      };
-
-      morseSocket.onerror = (error) => {
-        console.error("Morse WebSocket error:", error);
-        morseSocket.close();
-      };
-
-      translationSocket.onopen = () => {
-        console.log("Translation WebSocket connection opened");
-      };
-
-      translationSocket.onmessage = (event) => {
-        setReceivedTranslation(event.data);
-      };
-
-      translationSocket.onclose = () => {
-        console.log("Translation WebSocket connection closed, reconnecting...");
-        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
-      };
-
-      translationSocket.onerror = (error) => {
-        console.error("Translation WebSocket error:", error);
-        translationSocket.close();
-      };
-    };
-
-    connectWebSocket();
+    translationSocket.on("receive", (text) => {
+      setReceivedTranslation(text);
+      setMessages(prevMessages => [...prevMessages, { morse: "", text }]);
+    });
 
     return () => {
-      if (morseSocket) {
-        morseSocket.close();
-      }
-      if (translationSocket) {
-        translationSocket.close();
-      }
+      morseSocket.close();
+      translationSocket.close();
     };
-  }, [sessionId]);
+  }, [sessionId, morseToText]);
 
   useEffect(() => {
     scrollToBottom();
