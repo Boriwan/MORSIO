@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ChatComponent.css";
-import { getTranslationsBySession, createTranslation } from "../../apiService";
+import {
+  getTranslationsBySession,
+  createTranslation,
+  getSession,
+} from "../../apiService";
 
 const morseToText = (morse) => {
   const morseCode = {
@@ -58,6 +62,8 @@ const ChatComponent = ({ sessionId }) => {
   const [receivedMorse, setReceivedMorse] = useState("");
   const [receivedTranslation, setReceivedTranslation] = useState("");
   const messagesEndRef = useRef(null);
+  const [sessionName, setSessionName] = useState("");
+
   const [morseWs, setMorseWs] = useState(null);
   const [translationWs, setTranslationWs] = useState(null);
 
@@ -68,6 +74,9 @@ const ChatComponent = ({ sessionId }) => {
   const fetchMessages = async () => {
     try {
       const data = await getTranslationsBySession(sessionId);
+      const sessionInfo = await getSession(sessionId);
+      setSessionName(sessionInfo.name);
+
       const newMessages = data.map((msg) => ({
         morse: msg.morseCode.join(" "),
         text: msg.translation,
@@ -191,7 +200,7 @@ const ChatComponent = ({ sessionId }) => {
   return (
     <div className="chat-page">
       <div className="chat-page-container">
-        <h1>Session</h1>
+        <h1>{sessionName}</h1>
         <div className="message-container">
           {messages.map((msg, index) => (
             <div
