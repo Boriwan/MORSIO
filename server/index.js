@@ -90,8 +90,6 @@ wssMorse.on("connection", (ws) => {
     console.log("Received message:", message);
     broadcastMorse(message);
   });
-
-  ws.send("Welcome to /morse");
 });
 
 // translation
@@ -122,8 +120,6 @@ wssTranslation.on("connection", (ws) => {
     console.log("Received message:", message);
     broadcastTranslation(message);
   });
-
-  ws.send("Welcome to /translation");
 });
 
 server.on("upgrade", (request, socket, head) => {

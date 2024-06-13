@@ -1,12 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ChatComponent.css";
-import {
-  getTranslationsBySession,
-  createTranslation,
-  getSession,
-  getMorse,
-  getCurrentTranslation,
-} from "../../apiService";
+import { getTranslationsBySession, createTranslation } from "../../apiService";
 
 const morseToText = (morse) => {
   const morseCode = {
@@ -49,96 +43,128 @@ const morseToText = (morse) => {
   };
 
   return morse
-    .split("  ")
+    .split("  ") // Split at double spaces for words
     .map((word) =>
       word
-        .split(" ")
+        .split(" ") // Split at single spaces for characters
         .map((code) => morseCode[code] || "")
         .join("")
     )
-    .join(" ");
+    .join(" "); // Join words with space
 };
 
-const ChatComponent = ({ sessionId, morseCode, setMorseCode }) => {
+const ChatComponent = ({ sessionId }) => {
   const [messages, setMessages] = useState([]);
-  const [sessionName, setSessionName] = useState("");
+  const [receivedMorse, setReceivedMorse] = useState("");
   const [receivedTranslation, setReceivedTranslation] = useState("");
-    const [receivedMorse, setReceivedMorse] = useState("");
   const messagesEndRef = useRef(null);
-
-  useEffect(() => {
-    const translatedText = morseToText(morseCode);
-    setReceivedTranslation(translatedText);
-  }, [morseCode]);
+  const [morseWs, setMorseWs] = useState(null);
+  const [translationWs, setTranslationWs] = useState(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const fetchMessages = async () => {
+    try {
+      const data = await getTranslationsBySession(sessionId);
+      const newMessages = data.map((msg) => ({
+        morse: msg.morseCode.join(" "),
+        text: msg.translation,
+      }));
+      setMessages(newMessages);
+    } catch (error) {
+      console.error("Failed to fetch messages:", error);
+    }
+  };
+
   useEffect(() => {
-    let intervalId;
-
-    const fetchMessages = async () => {
-      try {
-        const data = await getTranslationsBySession(sessionId);
-        const sessionInfo = await getSession(sessionId);
-        setSessionName(sessionInfo.name);
-        const newMessages = data.map((msg) => ({
-          morse: msg.morseCode.join(" "),
-          text: msg.translation,
-        }));
-        // Update messages only if there are new ones
-        if (JSON.stringify(messages) !== JSON.stringify(newMessages)) {
-          setMessages(newMessages);
-        }
-      } catch (error) {
-        console.error("Failed to fetch messages:", error);
-      }
-    };
-
-    const fetchData = async () => {
-      try {
-        const morseData = await getMorse();
-        const transData = await getCurrentTranslation();
-        setReceivedTranslation(transData);
-      } catch (error) {
-        console.error("Failed to fetch messages:", error);
-      }
-    };
-
-    // Initial fetch
     fetchMessages();
-    fetchData();
 
-    // Set up the interval
-    intervalId = setInterval(() => {
-      fetchMessages();
-    }, 1200); // refresh every 1200 milliseconds
+    const intervalId = setInterval(fetchMessages, 1200);
 
-    // Cleanup function to clear the interval
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [sessionId, messages]); // Dependency array includes sessionId to re-initiate on change
+    return () => clearInterval(intervalId);
+  }, [sessionId]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    let morseSocket;
+    let translationSocket;
+
+    const connectWebSocket = () => {
+      morseSocket = new WebSocket(
+        `ws://localhost:8000/ws/morse?session=${sessionId}`
+      );
+      setMorseWs(morseSocket);
+
+      translationSocket = new WebSocket(
+        `ws://localhost:8000/ws/translation?session=${sessionId}`
+      );
+      setTranslationWs(translationSocket);
+
+      morseSocket.onopen = () => {
+        console.log("Morse WebSocket connection opened");
+      };
+
+      morseSocket.onmessage = (event) => {
+        setReceivedMorse(event.data);
+      };
+
+      morseSocket.onclose = () => {
+        console.log("Morse WebSocket connection closed, reconnecting...");
+        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+      };
+
+      morseSocket.onerror = (error) => {
+        console.error("Morse WebSocket error:", error);
+        morseSocket.close();
+      };
+
+      translationSocket.onopen = () => {
+        console.log("Translation WebSocket connection opened");
+      };
+
+      translationSocket.onmessage = (event) => {
+        setReceivedTranslation(event.data);
+      };
+
+      translationSocket.onclose = () => {
+        console.log("Translation WebSocket connection closed, reconnecting...");
+        setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+      };
+
+      translationSocket.onerror = (error) => {
+        console.error("Translation WebSocket error:", error);
+        translationSocket.close();
+      };
+    };
+
+    connectWebSocket();
+
+    return () => {
+      if (morseSocket) {
+        morseSocket.close();
+      }
+      if (translationSocket) {
+        translationSocket.close();
+      }
+    };
+  }, [sessionId]);
+
   const handleInputChange = (event) => {
     const input = event.target.value;
-    const validInput = input.replace(/[^.\- ]/g, ""); // Only allow dots, dashes, and spaces
-    setMorseCode(validInput);
-    const translatedText = morseToText(validInput);
+    setReceivedMorse(input);
+    const translatedText = morseToText(input);
     setReceivedTranslation(translatedText);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      sendMessage(morseCode, receivedTranslation); // Use morseCode for sending message
-      setMorseCode(""); // Clear the Morse code input
+      sendMessage(receivedMorse, receivedTranslation);
+      setReceivedMorse("");
       setReceivedTranslation("");
     }
   };
@@ -148,16 +174,24 @@ const ChatComponent = ({ sessionId, morseCode, setMorseCode }) => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
     try {
-      await createTranslation(sessionId, morse, translation);
+      await createTranslation(sessionId, morse, translation); // Send data to the backend
     } catch (error) {
       console.error("Failed to send translation:", error);
+    }
+
+    if (morseWs && morseWs.readyState === WebSocket.OPEN) {
+      morseWs.send(morse); // Send the Morse code to the server
+    }
+
+    if (translationWs && translationWs.readyState === WebSocket.OPEN) {
+      translationWs.send(translation); // Send the translation to the server
     }
   };
 
   return (
     <div className="chat-page">
       <div className="chat-page-container">
-        <h1>{sessionName}</h1>
+        <h1>Session</h1>
         <div className="message-container">
           {messages.map((msg, index) => (
             <div
@@ -178,7 +212,7 @@ const ChatComponent = ({ sessionId, morseCode, setMorseCode }) => {
             type="text"
             className="morse-input"
             placeholder="Enter Morse code here..."
-            value={morseCode}
+            value={receivedMorse}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             style={{
@@ -193,7 +227,6 @@ const ChatComponent = ({ sessionId, morseCode, setMorseCode }) => {
             placeholder="Your current translation"
             value={receivedTranslation}
             style={{ color: "grey", fontStyle: "italic" }}
-            readOnly
           />
         </div>
       </div>
