@@ -67,7 +67,7 @@ function About() {
       surname: "Stádník",
       position: "Backend developer",
       photo:
-        "https://pbs.twimg.com/profile_images/1232256905445244928/ZYHE79hx_400x400.jpg",
+        "https://scontent.fprg4-1.fna.fbcdn.net/v/t1.6435-9/60944759_1296342793863019_7786720676232036352_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=nUDUZLMUGpIQ7kNvgFd5JdO&_nc_ht=scontent.fprg4-1.fna&oh=00_AYAkN7jxYyDrNLNufmYPVZNlRGheAmltbby8ZdkTO6Bi5Q&oe=66924835",
     },
   ];
 
